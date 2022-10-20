@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.householdappliances.ui.screen.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.householdappliances.ui.screen.account.AccountFragment"
+        android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/myCartFragment"
+        android:name="com.example.cryptounderground.ui.screen.markets.MyCartFragment"
+        android:label="MyCartFragment" />
+</navigation>
