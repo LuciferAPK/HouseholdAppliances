@@ -6,7 +6,9 @@ import com.example.householdappliances.base.BaseFragment
 import com.example.householdappliances.databinding.FragmentHomeBinding
 import com.example.householdappliances.ui.adapter.PagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun getContentLayout(): Int {

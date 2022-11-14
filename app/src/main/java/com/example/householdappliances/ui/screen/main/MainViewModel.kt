@@ -1,30 +1,30 @@
-//package com.example.cryptounderground.ui.screen.main
-//
-//import androidx.lifecycle.ViewModel
-//import com.example.cryptounderground.base.Result
-//import com.example.cryptounderground.base.SingleLiveEvent
-//import com.example.cryptounderground.data.model.CoinResponse
-////import com.example.cryptounderground.data.model.UrlsRetry
-//import com.example.cryptounderground.network.END_POINT_GET_WALLPAPERS
-////import com.example.cryptounderground.network.generateUrlRetry
-//import com.example.cryptounderground.repository.HomeRepository
-//import dagger.hilt.android.lifecycle.HiltViewModel
-//import javax.inject.Inject
-//
-//@HiltViewModel
-//class MainViewModel @Inject constructor(
-//    private val homeRepository: HomeRepository
-//): ViewModel() {
-//
-//    val mLiveData = SingleLiveEvent<Result<CoinResponse>>()
-//    fun getWallpapers(
-//        urlsRetry: String = END_POINT_GET_WALLPAPERS
-//    ) {
-//        val request = homeRepository.getAllListCoin(
-//            urlsRetry
-//        )
-//        mLiveData.addSource(request) {
-//            mLiveData.postValue(it)
-//        }
-//    }
-//}
+package com.example.householdappliances.ui.screen.main
+
+import androidx.lifecycle.ViewModel
+import com.example.householdappliances.base.SingleLiveEvent
+import com.example.householdappliances.data.model.Category
+import com.example.householdappliances.network.END_POINT_GET_ALL_CATEGORY
+import com.example.householdappliances.repository.CategoryRepository
+import com.example.householdappliances.base.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val categoryRepository: CategoryRepository
+) : ViewModel() {
+    val categoriseResult = SingleLiveEvent<Result<List<Category>>>()
+    fun getAllCategory(
+        url: String? = END_POINT_GET_ALL_CATEGORY
+    ) {
+        val request = categoryRepository.getAllCategories(
+            url = url
+        )
+        categoriseResult.addSource(request) {
+            categoriseResult.postValue(it)
+
+        }
+
+    }
+
+}

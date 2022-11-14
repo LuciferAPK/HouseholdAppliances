@@ -1,12 +1,18 @@
 package com.example.householdappliances.ui.screen.main
 
+import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseActivity
 import com.example.householdappliances.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    private val viewModel : MainViewModel by viewModels()
     private val navController by lazy {
         findNavController(R.id.nav_host_fragment)
     }
@@ -17,6 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         setMenuBottomNavigation()
+        viewModel.getAllCategory()
     }
 
     override fun initListener() {
@@ -24,7 +31,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun observerLiveData() {
+        viewModel.apply {
+            categoriseResult.observe(this@MainActivity){
+                Log.d("GET_ALL_CATEGORY","$it")
+                handleResultWithoutLoading(it, onSuccess = {
+                    Log.d("GET_ALL_CATEGORY", "$it")
+                })
 
+            }
+        }
     }
 
     override fun getLayoutLoading(): View? {
