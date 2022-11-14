@@ -1,11 +1,5 @@
 package com.example.householdappliances.network
 
-//const val END_POINT_GET_WALLPAPERS = "v1/cryptocurrency/listings/latest"
+const val END_POINT_GET_ITEM_BY_CATEGORY = "item/bycategory"
+const val END_POINT_GET_ALL_CATEGORY = "category"
 
-//fun generateUrlRetry(endPoint: String) : UrlsRetry {
-//    val urlsRetry: Queue<ApiUrl> = LinkedList()
-//    for (url in ApplicationContext.getNetworkContext().apiList) {
-//        urlsRetry.add(ApiUrl(url, "${url}$endPoint"))
-//    }
-//    return UrlsRetry(urlsRetry)
-//}

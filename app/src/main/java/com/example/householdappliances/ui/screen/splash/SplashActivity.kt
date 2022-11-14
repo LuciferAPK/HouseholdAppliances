@@ -6,23 +6,26 @@ import android.view.View
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseActivity
 import com.example.householdappliances.databinding.ActivitySplashBinding
+import com.example.householdappliances.navigation.NavigationManager
 import com.example.householdappliances.ui.screen.login.LoginActivity
 import com.example.householdappliances.ui.screen.main.MainActivity
 import com.example.householdappliances.utils.CoroutineExt
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
+    @Inject
+    private lateinit var navigationManager: NavigationManager
 
     override fun getContentLayout(): Int {
         return R.layout.activity_splash
     }
 
     override fun initView() {
-//        startProcessData()
         CoroutineExt.runOnMainAfterDelay(2000) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            navigationManager.gotoMainActivityScreen()
         }
     }
 
@@ -34,13 +37,4 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         return null
     }
 
-//    private fun startProcessData() {
-//        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-//        viewModel.getWallpapers()
-//        viewModel.mLiveData.observe(this) { data ->
-//            if (data != null) {
-//                Log.d("TAG", "initViewModel: $data")
-//            }
-//        }
-//    }
 }

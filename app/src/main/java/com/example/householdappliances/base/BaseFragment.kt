@@ -2,6 +2,7 @@ package com.example.householdappliances.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,8 +112,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding> :
     protected fun <T : Any> handleResultWithLoading(result: Result<T>, onSuccess: (response: T) -> Unit) {
         when(result) {
             is Result.InProgress -> {
-//                showLoading(true)
-                timeStartLoading = System.currentTimeMillis()
+                Log.d("GET_ALL_CATEGORY","IN PROGRESS")
             }
             is Result.Success<T> -> {
 //                val timeLoading = CommonUtils.milliSecondsToSeconds(System.currentTimeMillis() - timeStartLoading)

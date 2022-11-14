@@ -6,6 +6,7 @@ import android.app.SharedElementCallback
 import android.content.pm.ActivityInfo
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -106,6 +107,7 @@ abstract class BaseActivity<BINDING : ViewDataBinding> : AppCompatActivity() {
     ) {
         when (result) {
             is Result.InProgress -> {
+                Log.d("GET_ALL_CATEGORY","IN PROGRESS")
             }
             is Result.Success<T> -> {
                 onSuccess.invoke(result.data)
