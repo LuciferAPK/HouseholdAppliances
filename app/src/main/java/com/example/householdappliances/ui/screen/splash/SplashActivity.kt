@@ -17,7 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     @Inject
-    private lateinit var navigationManager: NavigationManager
+    lateinit var navigationManager: NavigationManager
 
     override fun getContentLayout(): Int {
         return R.layout.activity_splash
