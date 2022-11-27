@@ -1,6 +1,6 @@
 package com.example.householdappliances.network
 
-const val END_POINT_GET_ITEM_BY_CATEGORY = "item/byCategory"
+const val END_POINT_GET_ITEM_BY_CATEGORY = "item/bycategory"
 const val END_POINT_GET_ALL_CATEGORY = "category"
 const val END_POINT_GET_CART_OF_CUSTOMER = "cart"
 const val END_POINT_ADD_CART_ITEM_TO_CART = "cart/update"

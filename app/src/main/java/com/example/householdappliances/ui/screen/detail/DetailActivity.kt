@@ -1,14 +1,14 @@
-package com.example.householdappliances.ui.screen.home.viewpager
+package com.example.householdappliances.ui.screen.detail
 
 import android.view.View
 import com.example.householdappliances.R
-import com.example.householdappliances.base.BaseFragment
-import com.example.householdappliances.databinding.FragmentHomeBinding
+import com.example.householdappliances.base.BaseActivity
+import com.example.householdappliances.databinding.ActivityDetailBinding
 
-class TrendFragment : BaseFragment<FragmentHomeBinding>() {
+class DetailActivity : BaseActivity<ActivityDetailBinding>() {
 
     override fun getContentLayout(): Int {
-        return R.layout.fragment_trending
+        return R.layout.activity_detail
     }
 
     override fun initView() {

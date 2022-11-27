@@ -39,7 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             when (position) {
                 0 -> tab.text = "Dành cho bạn"
                 1 -> tab.text = "Trending"
-                2 -> tab.text = "Phân loại"
             }
         }.attach()
     }

@@ -11,6 +11,6 @@ data class Category(
     val id: Int? = null,
     @SerializedName("name")
     val name: String? = null,
-    @SerializedName("name")
+    @SerializedName("image")
     val image: String? = null
 ) : Serializable
