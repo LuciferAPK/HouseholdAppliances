@@ -1,5 +1,6 @@
 package com.example.householdappliances.ui.screen.home.viewpager
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -41,6 +42,7 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>() {
     override fun observerLiveData() {
         viewModel.apply {
             categoriseResult.observe(this@ForYouFragment) { result ->
+                Log.d("GET_ALL_CATEGORY","$result")
                 handleResultWithoutLoading(result, onSuccess = {
                     listCategory.addAll(it)
                     categoryAdapter.notifyDataSetChanged()

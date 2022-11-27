@@ -18,5 +18,7 @@ data class Item(
     @SerializedName("unit")
     var unit: String? = "",
     @SerializedName("origin")
-    var origin: String = ""
+    var origin: String? = "",
+    @SerializedName("image")
+    var image: String? = ""
 ): Serializable

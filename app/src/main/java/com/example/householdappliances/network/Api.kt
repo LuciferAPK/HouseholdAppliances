@@ -12,7 +12,7 @@ interface Api {
     @GET
     suspend fun getItemByCategory(
         @Url url: String?,
-        @Body category: Category
+        @Query("idCategory") idCategory: Int
     ) : Response<List<Item>>
 
     @GET
@@ -36,7 +36,7 @@ interface Api {
     @GET
     suspend fun getCartOfCustomer(
         @Url url: String?,
-        @Body customer: Customer
+        @Query("idCustomer") idCustomer: Int
     ): Response<Cart>
 
     @POST

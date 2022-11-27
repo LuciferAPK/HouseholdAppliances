@@ -12,29 +12,26 @@ import com.example.householdappliances.data.model.Item
 import com.example.householdappliances.databinding.ActivityCategoryBinding
 import com.example.householdappliances.navigation.KeyDataIntent.CATEGORY
 import com.example.householdappliances.navigation.KeyDataIntent.LIST_CATEGORY
-import com.example.householdappliances.ui.adapter.CategoryAdapter
-import com.example.householdappliances.ui.adapter.ItemCategoryAdapter
+import com.example.householdappliances.ui.adapter.DetailCategoryAdapter
 import com.example.householdappliances.ui.screen.main.MainViewModel
-import com.example.householdappliances.utils.setupGridLayoutRecyclerView
 import com.example.householdappliances.utils.setupLinearLayoutRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
 @AndroidEntryPoint
 class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     private val viewModel: MainViewModel by viewModels()
     private val listItemByCategory: ArrayList<Item> = ArrayList()
-    private lateinit var itemCategoryAdapter: ItemCategoryAdapter
-    private var getNameCategoryFromBundle: String = ""
-    private var getListCategoryFromBundle: Category? = null
+    private lateinit var detailCategoryAdapter: DetailCategoryAdapter
+    private var categoryName: String = ""
+    private var category: Category? = null
     override fun getContentLayout(): Int {
         return R.layout.activity_category
     }
 
     override fun initView() {
         getDataFromBundle()
-        getListCategoryFromBundle?.let { viewModel.getItemByCategory(category = it) }
+        category?.let { viewModel.getItemByCategory(idCategory = it.id ?: 1) }
         setupAdapter()
         setUpToolbar()
     }
@@ -49,7 +46,7 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
                 Log.d("GET_ALL_CATEGORY","$result")
                 handleResultWithoutLoading(result, onSuccess = {
                     listItemByCategory.addAll(it)
-                    itemCategoryAdapter.notifyDataSetChanged()
+                    detailCategoryAdapter.notifyDataSetChanged()
                 })
             }
         }
@@ -60,9 +57,9 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     }
 
     private fun getDataFromBundle() {
-        getNameCategoryFromBundle = intent.getStringExtra(CATEGORY).toString()
-        getListCategoryFromBundle = intent.getSerializableExtra(LIST_CATEGORY) as Category
-        Log.d("TAG", "getDataFromBundle: $getListCategoryFromBundle")
+        categoryName = intent.getStringExtra(CATEGORY).toString()
+        category = intent.getSerializableExtra(LIST_CATEGORY) as Category
+        Log.d("TAG", "getDataFromBundle: $category")
     }
 
     private fun setUpToolbar() {
@@ -71,7 +68,7 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
         Objects.requireNonNull(supportActionBar)
             ?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.toolbar.title = getNameCategoryFromBundle
+        binding.toolbar.title = categoryName
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -83,14 +80,14 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     }
 
     private fun setupAdapter() {
-        itemCategoryAdapter = ItemCategoryAdapter(
+        detailCategoryAdapter = DetailCategoryAdapter(
             this,
             listItemByCategory,
             onClickItemCategoryListener = { position, item ->
                 Toast.makeText(this, "hihihi", Toast.LENGTH_SHORT).show()
             })
         setupLinearLayoutRecyclerView(this, binding.rvItemCategory)
-        binding.rvItemCategory.adapter = itemCategoryAdapter
+        binding.rvItemCategory.adapter = detailCategoryAdapter
     }
 
 }

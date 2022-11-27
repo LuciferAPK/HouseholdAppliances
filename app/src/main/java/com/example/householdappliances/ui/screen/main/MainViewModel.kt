@@ -31,11 +31,11 @@ class MainViewModel @Inject constructor(
     val itemByCategorise = SingleLiveEvent<Result<List<Item>>>()
     fun getItemByCategory(
         url: String? = END_POINT_GET_ITEM_BY_CATEGORY,
-        category: Category
+        idCategory: Int
     ) {
         val request = categoryRepository.getItemByCategories(
             url = url,
-            category
+            idCategory = idCategory
         )
         itemByCategorise.addSource(request) {
             itemByCategorise.postValue(it)

@@ -10,7 +10,7 @@ import com.example.householdappliances.R
 import com.example.householdappliances.data.model.Item
 import com.example.householdappliances.databinding.LayoutItemByCategoryBinding
 
-class ItemCategoryAdapter(
+class DetailCategoryAdapter(
     private val context: Context,
     private val items: ArrayList<Item>,
     private val onClickItemCategoryListener: (Int, Item) -> Unit
@@ -48,7 +48,7 @@ class ItemCategoryAdapter(
             binding.txtChina.text = item.origin
             binding.txtPrice.text = item.price.toString()
             Glide.with(context)
-                .load(item.category?.image)
+                .load(item.image)
                 .into(binding.imgCategory)
             binding.root.setOnClickListener {
                 onClickCategoryListener.invoke(position, item)

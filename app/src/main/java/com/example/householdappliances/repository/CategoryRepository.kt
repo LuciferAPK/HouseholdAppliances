@@ -35,12 +35,12 @@ class CategoryRepository @Inject constructor(private val api: Api) {
 
     fun getItemByCategories(
         url: String?,
-        category: Category
+        idCategory: Int
     ): LiveData<Result<List<Item>>> =
         liveData(Dispatchers.IO) {
             emit(Result.InProgress())
             try {
-                val request = api.getItemByCategory(url = url, category = category)
+                val request = api.getItemByCategory(url = url, idCategory = idCategory)
 
                 if (request.isSuccessful) {
                     emit(Result.Success(request.body() as List<Item>))
