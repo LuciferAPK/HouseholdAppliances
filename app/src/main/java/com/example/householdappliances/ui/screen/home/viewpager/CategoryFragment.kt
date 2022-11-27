@@ -4,8 +4,6 @@ import android.view.View
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseFragment
 import com.example.householdappliances.databinding.FragmentHomeBinding
-import com.example.householdappliances.ui.adapter.PagerAdapter
-import com.google.android.material.tabs.TabLayoutMediator
 
 class CategoryFragment : BaseFragment<FragmentHomeBinding>() {
 

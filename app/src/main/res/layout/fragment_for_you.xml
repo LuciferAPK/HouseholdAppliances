@@ -8,11 +8,14 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-        <ImageView
+        <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/img_slide"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@color/black"
+            app:iss_period="2000"
+            app:iss_auto_cycle="true"
+            app:iss_corner_radius="10"
+            app:iss_delay="5000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>

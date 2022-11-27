@@ -1,13 +1,11 @@
 package com.example.householdappliances.ui.screen
 
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseActivity
-import com.example.householdappliances.data.model.Category
 import com.example.householdappliances.data.model.Item
 import com.example.householdappliances.databinding.ActivityCategoryBinding
 import com.example.householdappliances.navigation.KeyDataIntent.CATEGORY
@@ -24,14 +22,14 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     private val listItemByCategory: ArrayList<Item> = ArrayList()
     private lateinit var detailCategoryAdapter: DetailCategoryAdapter
     private var categoryName: String = ""
-    private var category: Category? = null
+    private var categoryID: Int = 0
     override fun getContentLayout(): Int {
         return R.layout.activity_category
     }
 
     override fun initView() {
         getDataFromBundle()
-        category?.let { viewModel.getItemByCategory(idCategory = it.id ?: 1) }
+        viewModel.getItemByCategory(idCategory = categoryID)
         setupAdapter()
         setUpToolbar()
     }
@@ -43,7 +41,6 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     override fun observerLiveData() {
         viewModel.apply {
             itemByCategorise.observe(this@CategoryActivity) { result ->
-                Log.d("GET_ALL_CATEGORY","$result")
                 handleResultWithoutLoading(result, onSuccess = {
                     listItemByCategory.addAll(it)
                     detailCategoryAdapter.notifyDataSetChanged()
@@ -58,8 +55,7 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
 
     private fun getDataFromBundle() {
         categoryName = intent.getStringExtra(CATEGORY).toString()
-        category = intent.getSerializableExtra(LIST_CATEGORY) as Category
-        Log.d("TAG", "getDataFromBundle: $category")
+        categoryID = intent.getSerializableExtra(LIST_CATEGORY) as Int
     }
 
     private fun setUpToolbar() {

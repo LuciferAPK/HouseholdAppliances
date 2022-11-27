@@ -10,7 +10,7 @@ import com.example.householdappliances.ui.screen.home.viewpager.ForYouFragment
 import com.example.householdappliances.ui.screen.home.viewpager.TrendFragment
 import com.example.householdappliances.ui.screen.search.SearchFragment
 
-class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+open class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return 4
     }
@@ -20,14 +20,8 @@ class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             0 -> {
                 ForYouFragment()
             }
-            1 -> {
-                SearchFragment()
-            }
-            2 -> {
-                TrendFragment()
-            }
             else -> {
-                CategoryFragment()
+                TrendFragment()
             }
         }
     }

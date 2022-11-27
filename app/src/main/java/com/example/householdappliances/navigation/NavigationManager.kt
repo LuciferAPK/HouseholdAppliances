@@ -22,7 +22,7 @@ class NavigationManager(private val context: Context) {
         val intent = Intent(context, CategoryActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.putExtra(CATEGORY, category.name)
-        intent.putExtra(LIST_CATEGORY, category)
+        intent.putExtra(LIST_CATEGORY, category.id)
         context.startActivity(intent)
     }
 }
