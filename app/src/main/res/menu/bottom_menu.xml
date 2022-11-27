@@ -4,6 +4,11 @@
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_24"
         android:title="Mặt Hàng" />
+
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search"
+        android:title="Tìm kiếm" />
     <item
         android:id="@+id/nav_trades"
         android:icon="@drawable/ic_shopping_cart_24"

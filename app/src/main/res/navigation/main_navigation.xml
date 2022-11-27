@@ -15,4 +15,8 @@
         android:id="@+id/myCartFragment"
         android:name="com.example.cryptounderground.ui.screen.markets.MyCartFragment"
         android:label="MyCartFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.householdappliances.ui.screen.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>
