@@ -29,7 +29,6 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>() {
     }
 
     override fun initView() {
-        viewModel.getAllCategory()
         listImageSlider.add(SlideModel(R.drawable.slider1, ScaleTypes.CENTER_CROP))
         listImageSlider.add(SlideModel(R.drawable.slider2, ScaleTypes.CENTER_CROP))
         listImageSlider.add(SlideModel(R.drawable.slider3, ScaleTypes.CENTER_CROP))
@@ -62,10 +61,15 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>() {
         categoryAdapter = CategoryAdapter(
             requireContext(),
             listCategory,
-            onClickCategoryListener = { position, category ->
-                navigationManager.gotoCategoryActivityScreen(category)
+            onClickCategoryListener = { _, category ->
+                navigationManager.gotoCategoryFragmentScreen(parentFragmentManager, category)
             })
         setupGridLayoutRecyclerView(requireContext(), binding.rvListCategory, 2)
         binding.rvListCategory.adapter = categoryAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (listCategory.isEmpty()) viewModel.getAllCategory()
     }
 }

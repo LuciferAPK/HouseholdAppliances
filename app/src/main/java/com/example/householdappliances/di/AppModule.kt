@@ -1,11 +1,10 @@
-package com.example.householdappliances.injection
+package com.example.householdappliances.di
 
 import android.content.Context
 import com.example.householdappliances.navigation.NavigationManager
 import com.example.householdappliances.preferences.PreferencesManager
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
