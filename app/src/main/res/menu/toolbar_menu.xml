@@ -3,14 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/notification"
-        android:title="Notification"
-        android:icon="@drawable/ic_search"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/shopping"
-        android:title="Search"
+        android:title="Shopping"
         android:icon="@drawable/ic_shopping"
         app:showAsAction="always"/>
 

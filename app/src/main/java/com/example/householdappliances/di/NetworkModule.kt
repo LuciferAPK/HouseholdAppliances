@@ -1,4 +1,4 @@
-package com.example.householdappliances.injection
+package com.example.householdappliances.di
 
 import com.example.householdappliances.BASE_URL
 import com.example.householdappliances.network.Api
