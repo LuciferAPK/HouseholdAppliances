@@ -22,8 +22,4 @@ class TrendFragment : BaseFragment<FragmentHomeBinding>() {
     override fun observerLiveData() {
 
     }
-
-    override fun getLayoutLoading(): View? {
-        return null
-    }
 }

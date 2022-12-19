@@ -28,10 +28,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     }
 
-    override fun getLayoutLoading(): View? {
-        return null
-    }
-
     private fun setUpViewPager() {
         TabLayoutMediator(
             binding.tabLayout, binding.viewPaper

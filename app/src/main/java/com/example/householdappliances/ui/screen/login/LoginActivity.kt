@@ -38,8 +38,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun observerLiveData() {}
-
-    override fun getLayoutLoading(): View? {
-        return null
-    }
 }

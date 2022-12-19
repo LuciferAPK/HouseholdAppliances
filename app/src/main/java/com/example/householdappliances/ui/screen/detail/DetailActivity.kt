@@ -45,10 +45,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
 
     }
 
-    override fun getLayoutLoading(): View? {
-        return null
-    }
-
     private fun setUpToolbar() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_back)
         setSupportActionBar(binding.toolbar)

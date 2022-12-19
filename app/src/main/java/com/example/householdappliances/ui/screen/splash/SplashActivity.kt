@@ -37,9 +37,4 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun initListener() {}
 
     override fun observerLiveData() {}
-
-    override fun getLayoutLoading(): View? {
-        return null
-    }
-
 }

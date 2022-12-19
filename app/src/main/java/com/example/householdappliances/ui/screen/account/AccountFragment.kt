@@ -21,8 +21,4 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     override fun observerLiveData() {
 
     }
-
-    override fun getLayoutLoading(): View? {
-        return null
-    }
 }

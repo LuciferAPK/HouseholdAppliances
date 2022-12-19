@@ -29,8 +29,4 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
     override fun observerLiveData() {
 
     }
-
-    override fun getLayoutLoading(): View? {
-        return null
-    }
 }

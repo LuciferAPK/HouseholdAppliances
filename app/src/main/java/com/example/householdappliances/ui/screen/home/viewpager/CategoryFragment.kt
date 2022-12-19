@@ -53,16 +53,12 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     override fun observerLiveData() {
         viewModel.apply {
             itemByCategorise.observe(this@CategoryFragment) { result ->
-                handleResultWithoutLoading(result, onSuccess = {
+                handleResult(result, onSuccess = {
                     listItemByCategory.addAll(it)
                     detailCategoryAdapter.notifyDataSetChanged()
                 })
             }
         }
-    }
-
-    override fun getLayoutLoading(): View? {
-        return null
     }
 
     private fun getDataFromBundle() {

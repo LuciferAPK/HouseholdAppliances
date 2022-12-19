@@ -1,5 +1,6 @@
 package com.example.householdappliances.ui.screen.home.viewpager
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -45,16 +46,13 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>() {
     override fun observerLiveData() {
         viewModel.apply {
             categoriseResult.observe(this@ForYouFragment) { result ->
-                handleResultWithoutLoading(result, onSuccess = {
+                Log.d("aaaa", "observerLiveData: " + result)
+                handleResult(result, onSuccess = {
                     listCategory.addAll(it)
                     categoryAdapter.notifyDataSetChanged()
                 })
             }
         }
-    }
-
-    override fun getLayoutLoading(): View? {
-        return null
     }
 
     private fun setupAdapter() {

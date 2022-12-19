@@ -29,10 +29,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     }
 
-    override fun getLayoutLoading(): View? {
-        return null
-    }
-
     private fun setMenuBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId) {
