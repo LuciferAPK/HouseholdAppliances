@@ -14,7 +14,7 @@ class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
     val searchItemResult = SingleLiveEvent<Result<List<Item>>>()
-    fun getAllCategory (
+    fun searchItemByKey (
         key: String,
         url: String? = END_POINT_SEARCH_ITEM_BY_KEY
     ) {

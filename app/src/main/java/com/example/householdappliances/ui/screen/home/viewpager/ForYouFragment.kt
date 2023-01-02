@@ -46,7 +46,6 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>() {
     override fun observerLiveData() {
         viewModel.apply {
             categoriseResult.observe(this@ForYouFragment) { result ->
-                Log.d("aaaa", "observerLiveData: " + result)
                 handleResult(result, onSuccess = {
                     listCategory.addAll(it)
                     categoryAdapter.notifyDataSetChanged()
