@@ -42,7 +42,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:gravity="center_vertical"
-                    android:text="Họ và tên: Cường Smith"
+                    android:text="Họ tên:"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -58,7 +58,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:gravity="center_vertical"
-                    android:text="Điện thoại: 0397885496"
+                    android:text="Điện thoại:"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -74,7 +74,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:gravity="center_vertical"
-                    android:text="Email: csplus.cuong.smith@gmail.com"
+                    android:text="Email:"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 

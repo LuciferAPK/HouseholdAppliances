@@ -46,7 +46,7 @@ interface Api {
     ): Response<Cart>
 
     @POST
-    suspend fun addCustomer(
+    suspend fun createAccount(
         @Url url: String?,
         @Body customer: Customer
     ): Response<Customer>
