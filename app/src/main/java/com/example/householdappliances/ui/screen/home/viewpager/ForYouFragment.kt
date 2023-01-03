@@ -1,7 +1,5 @@
 package com.example.householdappliances.ui.screen.home.viewpager
 
-import android.util.Log
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel

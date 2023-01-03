@@ -9,6 +9,8 @@ data class Customer(
     var address: Address? = null,
     @SerializedName("email")
     var email: String? = null,
+    @SerializedName("username")
+    var username: String? = null,
     @SerializedName("gender")
     var gender: String? = null,
     @SerializedName("id")

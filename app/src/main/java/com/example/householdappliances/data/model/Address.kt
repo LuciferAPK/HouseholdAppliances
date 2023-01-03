@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class Address(
     @SerializedName("city")
     var city: String? = null,
-    @SerializedName("decripsiton")
-    var decripsiton: Any? = null,
+    @SerializedName("description")
+    var description: Any? = null,
     @SerializedName("district")
     var district: String? = null,
     @SerializedName("id")
