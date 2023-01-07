@@ -5,15 +5,17 @@ import java.io.Serializable
 
 class Cart(
     @SerializedName("createdTime")
-    val createdTime: Long? = null,
+    var createdTime: Long? = null,
     @SerializedName("id")
-    val id: Int? = null,
+    var id: Int? = null,
     @SerializedName("name")
-    val amount: Int? = 0,
+    var amount: Int? = 0,
     @SerializedName("totalPrice")
-    val totalPrice: Long? = 0,
+    var totalPrice: Long? = 0,
     @SerializedName("cartItems")
-    val cartItems: List<CartItem?>? = null,
+    var cartItems: List<CartItem?>? = null,
     @SerializedName("idorder")
-    var isOrder: String? =null
+    var isOrder: String? =null,
+    @SerializedName("customer")
+    var idCustomer: String? =null
 ): Serializable

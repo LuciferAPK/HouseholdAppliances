@@ -1,5 +1,6 @@
 package com.example.householdappliances.ui.screen.home.viewpager
 
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -9,8 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseFragment
-import com.example.householdappliances.data.model.Category
-import com.example.householdappliances.data.model.Item
+import com.example.householdappliances.data.model.*
 import com.example.householdappliances.databinding.FragmentCategoryBinding
 import com.example.householdappliances.databinding.FragmentHomeBinding
 import com.example.householdappliances.navigation.KeyDataIntent
@@ -20,6 +20,8 @@ import com.example.householdappliances.ui.adapter.DetailCategoryAdapter
 import com.example.householdappliances.ui.screen.main.MainViewModel
 import com.example.householdappliances.utils.setupLinearLayoutRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 
@@ -56,6 +58,13 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                 handleResult(result, onSuccess = {
                     listItemByCategory.addAll(it)
                     detailCategoryAdapter.notifyDataSetChanged()
+                })
+            }
+
+            addCartItemToCartCustomer.observe(this@CategoryFragment) { result ->
+                Log.d("TAG", "observerLiveData: $result")
+                handleResult(result, onSuccess = {
+                    Log.d("TAG", "observerLiveData: $it")
                 })
             }
         }
@@ -95,11 +104,25 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             onClickItemCategoryListener = { position, item ->
                 navigationManager.gotoDetailActivityScreen()
             },
-            onClickAddToCartListener = {
+            onClickAddToCartListener = { position, item ->
                 /**check login*/
-                Toast.makeText(requireContext(), "hihi", Toast.LENGTH_SHORT).show()
+                var cartItem = CartItem()
+                cartItem.item = item
+                val objAddToCart = Cart()
+//                objAddToCart.cartItems = listItemByCategory.get(0)
+                objAddToCart.amount = 1
+                objAddToCart.createdTime = System.currentTimeMillis()
+                objAddToCart.totalPrice = item.price?.toLong()
+//                objAddToCart.cartItems = cartItem
+                viewModel.addCartItemToCart(cart = objAddToCart)
+                Toast.makeText(requireContext(), "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
             })
         setupLinearLayoutRecyclerView(context, binding.rvItemCategory)
         binding.rvItemCategory.adapter = detailCategoryAdapter
+    }
+
+    private fun getDate(): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        return LocalDateTime.now().format(formatter)
     }
 }

@@ -8,31 +8,32 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.householdappliances.R
+import com.example.householdappliances.data.model.CartItem
 import com.example.householdappliances.data.model.Item
+import com.example.householdappliances.databinding.LayoutItemByCardBinding
 import com.example.householdappliances.databinding.LayoutItemByCategoryBinding
 
-class DetailCategoryAdapter(
+class DetailCartAdapter(
     private val context: Context,
-    private val items: ArrayList<Item>,
-    private val onClickItemCategoryListener: (Int, Item) -> Unit,
-    private val onClickAddToCartListener: (Int, Item) -> Unit
+    private val items: ArrayList<CartItem?>,
+    private val onClickDeleteItemListener: (Int, Item) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.layout_item_by_category,
+            R.layout.layout_item_by_card,
             parent,
             false
-        ) as LayoutItemByCategoryBinding
-        return ViewHolder(binding, onClickItemCategoryListener, onClickAddToCartListener)
+        ) as LayoutItemByCardBinding
+        return ViewHolder(binding, onClickDeleteItemListener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder.apply {
             if (holder is ViewHolder) {
-                holder.bind(position, items[position])
+                items[position]?.item?.let { holder.bind(position, it) }
             }
         }
     }
@@ -42,9 +43,8 @@ class DetailCategoryAdapter(
     }
 
     inner class ViewHolder(
-        val binding: LayoutItemByCategoryBinding,
-        private val onClickCategoryListener: (Int, Item) -> Unit,
-        private val onClickAddToCartListener: (Int, Item) -> Unit
+        val binding: LayoutItemByCardBinding,
+        private val onClickDeleteItemListener: (Int, Item) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(position: Int, item: Item) {
@@ -54,11 +54,8 @@ class DetailCategoryAdapter(
             Glide.with(context)
                 .load(item.image)
                 .into(binding.imgCategory)
-            binding.root.setOnClickListener {
-                onClickCategoryListener.invoke(position, item)
-            }
-            binding.imgBuyItem.setOnClickListener {
-                onClickAddToCartListener.invoke(position, item)
+            binding.imgDelete.setOnClickListener {
+                onClickDeleteItemListener.invoke(position, item)
             }
         }
     }

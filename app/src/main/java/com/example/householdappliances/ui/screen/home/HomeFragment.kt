@@ -16,7 +16,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initView() {
-        binding.viewPaper.adapter = PagerAdapter(this)
+        binding.viewPaper.adapter = PagerAdapter(requireActivity())
         setUpViewPager()
     }
 

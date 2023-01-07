@@ -33,4 +33,26 @@ class CartRepository @Inject constructor(private val api: Api) {
                 emit(Result.Error(e.message))
             }
         }
+
+    fun addCartItemToCart(
+        url: String?,
+        cart: Cart
+    ): LiveData<Result<Cart>> =
+        liveData(Dispatchers.IO) {
+            emit(Result.InProgress())
+            try {
+                val request = api.addCartItemToCart(url = url, cart)
+
+                if (request.isSuccessful) {
+                    emit(Result.Success(request.body() as Cart))
+                } else {
+                    val strErr = request.errorBody()?.string()
+                    val status = Gson().fromJson(strErr, ErrorResponse::class.java)
+                    emit(Result.Failures(status, request.code(), request.message()))
+                }
+
+            } catch (e: Exception) {
+                emit(Result.Error(e.message))
+            }
+        }
 }

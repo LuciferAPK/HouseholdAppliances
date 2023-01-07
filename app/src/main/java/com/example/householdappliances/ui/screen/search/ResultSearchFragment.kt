@@ -69,7 +69,7 @@ class ResultSearchFragment : BaseFragment<FragmentResultSearchBinding>() {
             onClickItemCategoryListener = { position, item ->
                 navigationManager.gotoDetailActivityScreen()
             },
-            onClickAddToCartListener = {
+            onClickAddToCartListener = { position, item ->
 
             })
         setupLinearLayoutRecyclerView(context, binding.rvItemResultSearch)
