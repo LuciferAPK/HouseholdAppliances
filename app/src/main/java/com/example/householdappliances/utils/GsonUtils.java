@@ -6,10 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-/**
- * Created by thevu2907@gmail.com on 4/8/2017
- */
-
 public class GsonUtils {
 
     private static Gson gson;

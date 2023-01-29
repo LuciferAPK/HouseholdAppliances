@@ -77,6 +77,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 return false
             }
         })
+
+        binding.toolbar.icClearText.setOnClickListener {
+            binding.toolbar.edtSearch.setText("")
+            KeyboardUtils.hideKeyboard(activity)
+            binding.toolbar.edtSearch.clearFocus()
+        }
     }
 
     override fun observerLiveData() {
