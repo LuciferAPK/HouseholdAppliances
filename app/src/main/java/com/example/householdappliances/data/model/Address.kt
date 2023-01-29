@@ -2,6 +2,7 @@ package com.example.householdappliances.data.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Address(
     @SerializedName("city")
@@ -18,4 +19,4 @@ data class Address(
     var street: String? = null,
     @SerializedName("ward")
     var ward: String? = null
-)
+): Serializable

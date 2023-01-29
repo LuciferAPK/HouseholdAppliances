@@ -9,8 +9,11 @@ import com.example.householdappliances.data.model.Cart
 import com.example.householdappliances.data.model.Customer
 import com.example.householdappliances.data.model.Item
 import com.example.householdappliances.network.*
+import com.example.householdappliances.preferences.CUSTOMER
+import com.example.householdappliances.preferences.PreferencesManager
 import com.example.householdappliances.repository.CartRepository
 import com.example.householdappliances.repository.HomeRepository
+import com.example.householdappliances.utils.GsonUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,7 +21,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     private val homeRepository: HomeRepository,
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
+    private val preferencesManager: PreferencesManager
 ) : ViewModel() {
     val categoriseResult = SingleLiveEvent<Result<List<Category>>>()
     fun getAllCategory(
@@ -76,20 +80,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    val getCartByIdCustomer = SingleLiveEvent<Result<Cart>>()
-    fun getCartOfCustomer(
-        url: String? = END_POINT_GET_CART_OF_CUSTOMER,
-        id: Int
-    ) {
-        val request = cartRepository.getCartOfCustomer(
-            url = url,
-            id = id
-        )
-        getCartByIdCustomer.addSource(request) {
-            getCartByIdCustomer.postValue(it)
-        }
-    }
-
     val addCartItemToCartCustomer = SingleLiveEvent<Result<Cart>>()
     fun addCartItemToCart(
         url: String? = END_POINT_ADD_CART_ITEM_TO_CART,
@@ -103,4 +93,8 @@ class MainViewModel @Inject constructor(
             addCartItemToCartCustomer.postValue(it)
         }
     }
+
+    fun saveCustomer(customer: Customer) = preferencesManager.save(CUSTOMER, GsonUtils.serialize(customer, Customer::class.java))
+
+    fun getCustomer() : Customer? = GsonUtils.deserialize(preferencesManager.getString(CUSTOMER), Customer::class.java)
 }

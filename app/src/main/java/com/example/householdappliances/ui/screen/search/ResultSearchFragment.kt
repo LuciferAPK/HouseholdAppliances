@@ -67,7 +67,7 @@ class ResultSearchFragment : BaseFragment<FragmentResultSearchBinding>() {
             requireContext(),
             listItem,
             onClickItemCategoryListener = { position, item ->
-                navigationManager.gotoDetailActivityScreen()
+                navigationManager.gotoDetailActivityScreen(item)
             },
             onClickAddToCartListener = { position, item ->
 

@@ -102,7 +102,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             requireContext(),
             listItemByCategory,
             onClickItemCategoryListener = { position, item ->
-                navigationManager.gotoDetailActivityScreen()
+                navigationManager.gotoDetailActivityScreen(item)
             },
             onClickAddToCartListener = { position, item ->
                 /**check login*/

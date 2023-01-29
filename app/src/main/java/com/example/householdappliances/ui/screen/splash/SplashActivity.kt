@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
 import com.example.householdappliances.R
+import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.base.BaseActivity
 import com.example.householdappliances.databinding.ActivitySplashBinding
 import com.example.householdappliances.navigation.NavigationManager
@@ -21,7 +22,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     @Inject
     lateinit var navigationManager: NavigationManager
 
-//    private val viewModel : MainViewModel by viewModels()
+    private val viewModel : MainViewModel by viewModels()
 
     override fun getContentLayout(): Int {
         return R.layout.activity_splash
@@ -29,6 +30,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initView() {
 //        viewModel.getAllCategory()
+        ApplicationContext.customer = viewModel.getCustomer()
         CoroutineExt.runOnMainAfterDelay(2000) {
             navigationManager.gotoMainActivityScreen()
         }

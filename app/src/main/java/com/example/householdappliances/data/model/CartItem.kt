@@ -7,10 +7,9 @@ class CartItem(
     @SerializedName("id")
     var id: Int? =null,
     @SerializedName("amount")
-    var amount: Int? =0,
+    var amount: Int =0,
     @SerializedName("createdTime")
     var createdTime: Long? = null,
-    @SerializedName("cart")
     var cart: Cart?= null,
     @SerializedName("item")
     var item: Item?= null

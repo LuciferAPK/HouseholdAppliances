@@ -13,9 +13,9 @@ class Cart(
     @SerializedName("totalPrice")
     var totalPrice: Long? = 0,
     @SerializedName("cartItems")
-    var cartItems: List<CartItem?>? = null,
+    var cartItems: ArrayList<CartItem?>? = null,
     @SerializedName("idorder")
     var isOrder: String? =null,
     @SerializedName("customer")
-    var idCustomer: String? =null
+    var customer: Customer? =null
 ): Serializable
