@@ -80,7 +80,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/txt_name_product"
+                            android:id="@+id/tv_name_product"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Name"
@@ -89,7 +89,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/txt_category"
+                            android:id="@+id/tv_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -98,7 +98,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/txt_price"
+                            android:id="@+id/tv_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -107,7 +107,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/txt_review"
+                            android:id="@+id/tv_review"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -137,6 +137,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <EditText
+                        android:id="@+id/edt_amount"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -170,13 +171,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Thông tin sản phẩm"
+                    android:text="Chi tiết"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/detail_category"
+                    android:id="@+id/tv_descriptions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -188,6 +189,18 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
-
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="match_parent"
+            android:id="@+id/progress"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/dp80"
+            app:indicatorColor="@color/black"
+            app:trackCornerRadius="@dimen/dp4"
+            app:trackThickness="@dimen/dp7"
+            android:visibility="gone"
+            app:trackColor="@color/colorYellow"
+            android:indeterminate="true"
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

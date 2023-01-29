@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
+const val CUSTOMER ="CUSTOMER"
+
 class PreferencesManager(context: Context) {
     private val defaultValueLong: Long = -1
     private val defaultValueInteger = -1

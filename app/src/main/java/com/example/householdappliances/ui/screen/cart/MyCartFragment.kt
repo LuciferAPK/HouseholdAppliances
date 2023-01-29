@@ -49,21 +49,21 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
     }
 
     override fun observerLiveData() {
-        mainViewModel.apply {
-            getCartByIdCustomer.observe(this@MyCartFragment) { result ->
-                Log.d("TAG", "observerLiveData: $result")
-                handleResult(result, onSuccess = {
-                    it.cartItems?.let { it1 -> cartItem.addAll(it1.toList()) }
-                    detailCartAdapter.notifyDataSetChanged()
-//                    it.cartItems?.let { it1 -> cartItem.addAll(it1) }
-//                    for (cart in cartItem) {
-//                        cart?.item?.let { it1 -> listItem.add(it1) }
-////                        Log.d("TAG", "observerLiveData: ${it.cartItems?.size}")
-//                    }
-//                    Log.d("TAG", "observerLiveData: ${it.cartItems[0].item}")
-                })
-            }
-        }
+//        mainViewModel.apply {
+//            getCartByIdCustomer.observe(this@MyCartFragment) { result ->
+//                Log.d("TAG", "observerLiveData: $result")
+//                handleResult(result, onSuccess = {
+//                    it.cartItems?.let { it1 -> cartItem.addAll(it1.toList()) }
+//                    detailCartAdapter.notifyDataSetChanged()
+////                    it.cartItems?.let { it1 -> cartItem.addAll(it1) }
+////                    for (cart in cartItem) {
+////                        cart?.item?.let { it1 -> listItem.add(it1) }
+//////                        Log.d("TAG", "observerLiveData: ${it.cartItems?.size}")
+////                    }
+////                    Log.d("TAG", "observerLiveData: ${it.cartItems[0].item}")
+//                })
+//            }
+//        }
     }
 
     private fun setupAdapter() {
@@ -77,10 +77,10 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
         binding.rvListCart.adapter = detailCartAdapter
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (sessionContext().id != 0) {
-            mainViewModel.getCartOfCustomer(id = sessionContext().id!!)
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        if (sessionContext().id != 0) {
+//            mainViewModel.getCartOfCustomer(id = sessionContext().id!!)
+//        }
+//    }
 }

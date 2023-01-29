@@ -1,12 +1,18 @@
 package com.example.householdappliances.navigation
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.example.householdappliances.R
+import com.example.householdappliances.data.model.Cart
 import com.example.householdappliances.data.model.Category
+import com.example.householdappliances.data.model.Item
+import com.example.householdappliances.navigation.KeyDataIntent.CART
 import com.example.householdappliances.navigation.KeyDataIntent.CATEGORY
+import com.example.householdappliances.navigation.KeyDataIntent.ITEM
+import com.example.householdappliances.ui.screen.cart.CartActivity
 import com.example.householdappliances.ui.screen.detail.DetailActivity
 import com.example.householdappliances.ui.screen.home.viewpager.CategoryFragment
 import com.example.householdappliances.ui.screen.login.CreateAccountFragment
@@ -38,10 +44,24 @@ class NavigationManager(private val context: Context) {
         fragmentTransaction.commit()
     }
 
-    fun gotoDetailActivityScreen(){
+    fun gotoDetailActivityScreen(item: Item){
+        val bundle = Bundle()
+        bundle.putSerializable(ITEM, item)
         val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtras(bundle)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    fun gotoCartActivityScreen(activity: Activity, cart: Cart?= null){
+        val intent = Intent(context, CartActivity::class.java)
+        if(cart != null){
+            val bundle = Bundle()
+            bundle.putSerializable(CART, cart)
+            intent.putExtras(bundle)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        activity.startActivity(intent)
     }
 
     fun gotoCreateAccountFragmentScreen(parentFragmentManager: FragmentManager){

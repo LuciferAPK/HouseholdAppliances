@@ -42,7 +42,7 @@ interface Api {
     @POST
     suspend fun addCartItemToCart(
         @Url url: String?,
-        @Body cart: Cart
+        @Body cart: Cart?
     ): Response<Cart>
 
     @POST

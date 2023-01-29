@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.householdappliances.R
+import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.application.ApplicationContext.sessionContext
 import com.example.householdappliances.base.BaseActivity
 import com.example.householdappliances.databinding.ActivityLoginBinding
@@ -36,15 +37,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             userName = binding.tvTk.text.toString().trim()
             password = binding.tvPass.text.toString().trim()
             mainViewModel.getAccountLogin(username = userName, password = password)
-            CoroutineExt.runOnMainAfterDelay(500) {
-                if (isCheckLogin) {
-                    if (userName != sessionContext().userName || password != sessionContext().password) {
-                        Toast.makeText(this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show()
-                    } else {
-                        navigationManager.gotoMainActivityScreen()
-                    }
-                }
-            }
+//            CoroutineExt.runOnMainAfterDelay(500) {
+//                if (isCheckLogin) {
+//                    if (userName != sessionContext().userName || password != sessionContext().password) {
+//                        Toast.makeText(this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        navigationManager.gotoMainActivityScreen()
+//                    }
+//                }
+//            }
         }
 
         binding.tvSignup.setOnClickListener {
@@ -56,16 +57,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         mainViewModel.apply {
             accountLogin.observe(this@LoginActivity) { result ->
                 handleResult(result, onSuccess = {
-                    if (it.email?.isNotEmpty() == true) {
-                        isCheckLogin = true
-                        sessionContext().id = it.id
-                        sessionContext().tel = it.tel
-                        sessionContext().email = it.email
-                        sessionContext().name = it.name
-                        sessionContext().password = it.password
-                        sessionContext().userName = it.username
+                    if (it.id != 0) {
+                        ApplicationContext.customer = it
+                        mainViewModel.saveCustomer(it)
+                       this@LoginActivity.finish()
                     } else {
-                        isCheckLogin = false
+                        Toast.makeText(baseContext, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
