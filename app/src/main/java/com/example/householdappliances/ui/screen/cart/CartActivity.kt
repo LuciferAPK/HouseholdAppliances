@@ -26,7 +26,7 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
     private val cartItem: ArrayList<CartItem?> = arrayListOf()
     private lateinit var detailCartAdapter: DetailCartAdapter
     private var totalAmount: Int ?= 0
-    private var totalPrice = 0
+    private var totalPrice = 0L
 
     @Inject
     lateinit var navigationManager: NavigationManager
@@ -40,6 +40,11 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
     }
 
     override fun initListener() {
+        binding.btnOrder.setOnClickListener {
+            cart?.amount = totalAmount
+            cart?.totalPrice = totalPrice
+            navigationManager.gotoOrderActivityScreen(this, cart)
+        }
     }
 
     private fun getDataFromIntent(){
@@ -91,7 +96,6 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
                         cart?.cartItems?.let { cartItem.addAll(it) }
                         detailCartAdapter.notifyDataSetChanged()
                         calculatorTotalPriceAndTotalAmount()
-
                     }
                     else ->{
                     }

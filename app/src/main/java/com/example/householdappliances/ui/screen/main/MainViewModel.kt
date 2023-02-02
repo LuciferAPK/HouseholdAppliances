@@ -2,12 +2,9 @@ package com.example.householdappliances.ui.screen.main
 
 import androidx.lifecycle.ViewModel
 import com.example.householdappliances.base.SingleLiveEvent
-import com.example.householdappliances.data.model.Category
 import com.example.householdappliances.repository.CategoryRepository
 import com.example.householdappliances.base.Result
-import com.example.householdappliances.data.model.Cart
-import com.example.householdappliances.data.model.Customer
-import com.example.householdappliances.data.model.Item
+import com.example.householdappliances.data.model.*
 import com.example.householdappliances.network.*
 import com.example.householdappliances.preferences.CUSTOMER
 import com.example.householdappliances.preferences.PreferencesManager
@@ -97,4 +94,9 @@ class MainViewModel @Inject constructor(
     fun saveCustomer(customer: Customer) = preferencesManager.save(CUSTOMER, GsonUtils.serialize(customer, Customer::class.java))
 
     fun getCustomer() : Customer? = GsonUtils.deserialize(preferencesManager.getString(CUSTOMER), Customer::class.java)
+
+    val addressCustomer = SingleLiveEvent<Address>()
+    fun createAddressCustomer(address: Address){
+        addressCustomer.postValue(address)
+    }
 }

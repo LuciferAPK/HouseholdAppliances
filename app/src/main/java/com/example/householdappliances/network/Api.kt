@@ -53,8 +53,8 @@ interface Api {
 
     @POST
     suspend fun createOrder(
-        @Url url: String,
-        @Body order: Order
+        @Url url: String?,
+        @Body order: Order?
     ): Response<Order>
 
 }

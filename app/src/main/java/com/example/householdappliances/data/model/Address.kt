@@ -19,4 +19,8 @@ data class Address(
     var street: String? = null,
     @SerializedName("ward")
     var ward: String? = null
-): Serializable
+): Serializable{
+    override fun toString(): String {
+        return "Số $number, đường $street, phường $ward, quận $district, thành phố $city "
+    }
+}
