@@ -7,7 +7,7 @@ const val END_POINT_ADD_CART_ITEM_TO_CART = "cart/update"
 const val END_POINT_CHECK_LOGIN = "customer/checkLogin"
 const val END_POINT_CREATE_CUSTOMER = "customer"
 const val END_POINT_SEARCH_ITEM_BY_KEY = "item/searchByKey"
-const val END_POINT_CREATE_ORDER = "order/create"
+const val END_POINT_CREATE_ORDER = "order"
 const val END_POINT_GET_HOT_ITEM = "item/hotItem"
 const val END_POINT_ADD_RATING_ITEM = "item/addRating"
 

@@ -60,62 +60,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent" />
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/information_ship"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:text="Thông tin vận chuyển"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="18sp"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/rv_list_cart" />-->
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/information"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:padding="5dp"-->
-<!--                        android:background="@drawable/border_information"-->
-<!--                        android:orientation="vertical"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/information_ship">-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/name_information"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:hint="Tên"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="16sp" />-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/number_information"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:hint="Điện thoại"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="16sp" />-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/address"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:hint="Địa chỉ"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="16sp" />-->
-
-<!--                    </LinearLayout>-->
-
                     <TextView
                         android:id="@+id/abate"
                         android:layout_width="match_parent"
@@ -214,42 +158,10 @@
                             android:layout_height="1dp"
                             android:background="#bdbdbd"/>
 
-<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:padding="5dp"-->
-<!--                            android:layout_marginTop="10dp">-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/ship"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:gravity="center_vertical"-->
-<!--                                android:text="Phí vận chuyển"-->
-<!--                                android:textColor="@color/black"-->
-<!--                                android:textSize="16sp"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent"/>-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/ship_number"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:gravity="center_vertical"-->
-<!--                                android:text="Miễn phí"-->
-<!--                                android:textColor="@color/black"-->
-<!--                                android:textSize="16sp"-->
-<!--                                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent"/>-->
-<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/black"/>
-
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -282,6 +194,61 @@
                                 app:layout_constraintTop_toTopOf="parent"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/black"/>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_address_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text="Địa chỉ giao hàng"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/tv_address"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/tv_address_title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:hint="Nhấn để nhập địa chỉ"
+                                android:paddingStart="5dp"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <LinearLayout
+                            android:paddingVertical="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="Hình thức thanh toán"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <Spinner
+                                android:id="@+id/spinner_choose_payment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
                     </LinearLayout>
 

@@ -18,6 +18,7 @@ import com.example.householdappliances.ui.screen.home.viewpager.CategoryFragment
 import com.example.householdappliances.ui.screen.login.CreateAccountFragment
 import com.example.householdappliances.ui.screen.login.LoginActivity
 import com.example.householdappliances.ui.screen.main.MainActivity
+import com.example.householdappliances.ui.screen.order.OrderActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -55,6 +56,17 @@ class NavigationManager(private val context: Context) {
 
     fun gotoCartActivityScreen(activity: Activity, cart: Cart?= null){
         val intent = Intent(context, CartActivity::class.java)
+        if(cart != null){
+            val bundle = Bundle()
+            bundle.putSerializable(CART, cart)
+            intent.putExtras(bundle)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        activity.startActivity(intent)
+    }
+
+    fun gotoOrderActivityScreen(activity: Activity, cart: Cart?= null){
+        val intent = Intent(context, OrderActivity::class.java)
         if(cart != null){
             val bundle = Bundle()
             bundle.putSerializable(CART, cart)

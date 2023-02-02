@@ -15,13 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HouseholdAppliances"
         android:usesCleartextTraffic="true">
-<!--        <activity-->
-<!--            android:name=".ui.screen.CategoryActivity"-->
-<!--            android:exported="false">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </activity>-->
+        <activity
+            android:name=".ui.screen.order.OrderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <!-- <activity -->
+        <!-- android:name=".ui.screen.CategoryActivity" -->
+        <!-- android:exported="false"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".ui.screen.detail.DetailActivity"
             android:exported="false">
