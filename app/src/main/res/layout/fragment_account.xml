@@ -62,22 +62,6 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#bdbdbd"
-                    android:layout_margin="5dp"/>
-
-                <TextView
-                    android:id="@+id/email_information"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:text="Email:"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
             </LinearLayout>
 
             <TextView
@@ -131,65 +115,66 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cài đặt khác"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/contract_list" />
+<!--            <TextView-->
+<!--                android:id="@+id/setting"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Cài đặt khác"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:textSize="24sp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/contract_list" />-->
 
-            <LinearLayout
-                android:id="@+id/setting_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/border_information"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/setting">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/setting_list"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@drawable/border_information"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/setting">-->
 
-                <TextView
-                    android:id="@+id/update_information"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:text="Cập nhật thông tin"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/update_information"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="Cập nhật thông tin"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#bdbdbd"
-                    android:layout_margin="5dp"/>
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#bdbdbd"-->
+<!--                    android:layout_margin="5dp"/>-->
 
-                <TextView
-                    android:id="@+id/update_pass"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:text="Đổi mật khẩu"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/update_pass"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="Đổi mật khẩu"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp" />-->
+<!--            </LinearLayout>-->
 
             <Button
+                android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:text="Đăng xuất"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 style="@style/ButtonLogoutStyle"
-                app:layout_constraintTop_toBottomOf="@id/setting_list"/>
+                app:layout_constraintTop_toBottomOf="@id/contract_list"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
