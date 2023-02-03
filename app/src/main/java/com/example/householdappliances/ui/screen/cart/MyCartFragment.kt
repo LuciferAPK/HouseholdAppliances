@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.householdappliances.R
+import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.application.ApplicationContext.sessionContext
 import com.example.householdappliances.base.BaseFragment
 import com.example.householdappliances.data.model.Cart
