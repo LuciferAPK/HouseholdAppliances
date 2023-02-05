@@ -12,7 +12,9 @@ import com.example.householdappliances.ui.adapter.DetailCartAdapter
 import com.example.householdappliances.ui.screen.cart.CartViewModel
 import com.example.householdappliances.utils.setupLinearLayoutRecyclerView
 import com.example.householdappliances.base.Result
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderActivity : BaseActivity<ActivityOrderBinding>() {
     private var cart: Cart? = null
     private val cartViewModel: CartViewModel by viewModels()

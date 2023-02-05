@@ -3,11 +3,13 @@ package com.example.householdappliances.ui.screen.cart
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 import com.example.householdappliances.R
 import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.application.ApplicationContext.sessionContext
 import com.example.householdappliances.base.BaseFragment
+import com.example.householdappliances.base.Result
 import com.example.householdappliances.data.model.Cart
 import com.example.householdappliances.data.model.CartItem
 import com.example.householdappliances.data.model.Item
@@ -27,11 +29,13 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
 
     @Inject
     lateinit var navigationManager: NavigationManager
-    private val listItem: ArrayList<Item> = ArrayList()
+    private var cart : Cart?= null
     private val cartItem: ArrayList<CartItem?> = ArrayList()
     private lateinit var detailCartAdapter: DetailCartAdapter
+    private var totalAmount: Int ?= 0
+    private var totalPrice = 0L
 
-    private val mainViewModel: MainViewModel by activityViewModels()
+    private val cartViewModel: CartViewModel by activityViewModels()
 
     override fun getContentLayout(): Int {
         return R.layout.fragment_cart
@@ -47,24 +51,44 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
         binding.deleteList.setOnClickListener {
             DialogClearCart().show(childFragmentManager, "DialogClearCart")
         }
+
+        binding.btnOrder.setOnClickListener {
+            cart?.amount = totalAmount
+            cart?.totalPrice = totalPrice
+            navigationManager.gotoOrderActivityScreen(requireActivity(), cart)
+        }
     }
 
     override fun observerLiveData() {
-//        mainViewModel.apply {
-//            getCartByIdCustomer.observe(this@MyCartFragment) { result ->
-//                Log.d("TAG", "observerLiveData: $result")
-//                handleResult(result, onSuccess = {
-//                    it.cartItems?.let { it1 -> cartItem.addAll(it1.toList()) }
-//                    detailCartAdapter.notifyDataSetChanged()
-////                    it.cartItems?.let { it1 -> cartItem.addAll(it1) }
-////                    for (cart in cartItem) {
-////                        cart?.item?.let { it1 -> listItem.add(it1) }
-//////                        Log.d("TAG", "observerLiveData: ${it.cartItems?.size}")
-////                    }
-////                    Log.d("TAG", "observerLiveData: ${it.cartItems[0].item}")
-//                })
-//            }
-//        }
+        cartViewModel.apply {
+            getCartByIdCustomer.observe(this@MyCartFragment){ result ->
+                when(result){
+                    is Result.InProgress ->{
+
+                    }
+                    is Result.Success ->{
+                        cart = result.data
+                        cartItem.clear()
+                        cart?.cartItems?.let { cartItem.addAll(it) }
+                        detailCartAdapter.notifyDataSetChanged()
+                        calculatorTotalPriceAndTotalAmount()
+                    }
+                    else ->{
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun calculatorTotalPriceAndTotalAmount(){
+        cartItem.forEach {
+            totalAmount = totalAmount?.plus(it?.amount ?: 0)
+            totalPrice = totalPrice.plus(it?.amount?.times(it.item?.price!!) ?: 0)
+        }
+        binding.tvTotalAmount.text = totalAmount.toString()
+        binding.tvTotalPrice.text = totalPrice.toString()
+        binding.tvTotal.text = totalPrice.toString()
     }
 
     private fun setupAdapter() {
@@ -78,10 +102,10 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
         binding.rvListCart.adapter = detailCartAdapter
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        if (sessionContext().id != 0) {
-//            mainViewModel.getCartOfCustomer(id = sessionContext().id!!)
-//        }
-//    }
+    override fun onResume() {
+        super.onResume()
+        if (cartItem.isEmpty()) {
+            cartViewModel.getCartOfCustomer()
+        }
+    }
 }

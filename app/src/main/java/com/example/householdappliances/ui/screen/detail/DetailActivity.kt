@@ -85,7 +85,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                         cartViewModel.addCartItemToCart(cart = ApplicationContext.cart)
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception){
                 Toast.makeText(this, "Nhập số lượng mặt hàng", Toast.LENGTH_SHORT).show()
             }
         }
