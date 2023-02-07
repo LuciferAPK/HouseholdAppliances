@@ -5,57 +5,48 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseFragment
+import com.example.householdappliances.data.model.Cart
+import com.example.householdappliances.data.model.CartItem
+import com.example.householdappliances.data.model.Item
 import com.example.householdappliances.databinding.FragmentSearchBinding
 import com.example.householdappliances.enums.VPControlSearchScreenType
+import com.example.householdappliances.navigation.NavigationManager
+import com.example.householdappliances.ui.adapter.DetailCategoryAdapter
 import com.example.householdappliances.ui.adapter.HomePageAdapter
+import com.example.householdappliances.ui.screen.main.MainViewModel
 import com.example.householdappliances.ui.screen.search.extension.showIcSearch
 import com.example.householdappliances.utils.KeyboardUtils
+import com.example.householdappliances.utils.setupLinearLayoutRecyclerView
+import java.util.ArrayList
+import javax.inject.Inject
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
-
-    private lateinit var pagerAdapter: HomePageAdapter
-    private lateinit var overviewSearchFragment: OverviewSearchFragment
-    private lateinit var resultSearchFragment: ResultSearchFragment
+    @Inject
+    lateinit var navigationManager: NavigationManager
+    private val searchViewModel : SearchViewModel by activityViewModels()
+    private lateinit var detailCategoryAdapter: DetailCategoryAdapter
+    private val listItem: ArrayList<Item> = ArrayList()
+    private lateinit var layoutManager: LinearLayoutManager
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun getContentLayout(): Int {
         return R.layout.fragment_search
     }
 
     override fun initView() {
-        initFragmentVPControlSearch()
+        setupAdapter()
     }
 
     override fun initListener() {
-
-        binding.vpControlSearch.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {}
-
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    VPControlSearchScreenType.OVERVIEW.position -> {
-                        binding.toolbar.edtSearch.clearFocus()
-                        binding.toolbar.viewSetOnclick.visibility = View.VISIBLE
-                        showIcSearch()
-                        KeyboardUtils.hideKeyboard(activity)
-                    }
-                    VPControlSearchScreenType.RESULT.position -> {
-                        KeyboardUtils.hideKeyboard(activity)
-                        binding.toolbar.edtSearch.clearFocus()
-                    }
-                }
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
 
         binding.toolbar.edtSearch.setOnEditorActionListener(object :
             TextView.OnEditorActionListener {
@@ -66,12 +57,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             ): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (binding.toolbar.edtSearch.text.trim().isNotEmpty()) {
-                        resultSearchFragment.getResultByHashtag(binding.toolbar.edtSearch.text.toString())
-                        binding.vpControlSearch.setCurrentItem(
-                            VPControlSearchScreenType.RESULT.position,
-                            false
-                        )
+                        listItem.clear()
+                        detailCategoryAdapter.notifyDataSetChanged()
+                        val keySearch = binding.toolbar.edtSearch.text.trim()
+                        searchViewModel.searchItemByKey(keySearch.toString())
                     }
+                    KeyboardUtils.hideKeyboard(activity)
                     return true
                 }
                 return false
@@ -86,18 +77,37 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     override fun observerLiveData() {
-
+        searchViewModel.apply {
+            searchItemResult.observe(this@SearchFragment) { result ->
+                handleResult(
+                    result,
+                    onSuccess = {
+                        listItem.addAll(it)
+                        detailCategoryAdapter.notifyDataSetChanged()
+                    }
+                )
+            }
+        }
     }
 
-    private fun initFragmentVPControlSearch() {
-        binding.vpControlSearch.isUserInputEnabled = false
-        overviewSearchFragment = OverviewSearchFragment.newInstance()
-        resultSearchFragment = ResultSearchFragment.newInstance()
-        pagerAdapter = HomePageAdapter(parentFragmentManager, lifecycle)
-        pagerAdapter.addFragment(overviewSearchFragment)
-        pagerAdapter.addFragment(resultSearchFragment)
-        binding.vpControlSearch.adapter = pagerAdapter
-        binding.vpControlSearch.offscreenPageLimit = pagerAdapter.itemCount
-        binding.vpControlSearch.currentItem = VPControlSearchScreenType.OVERVIEW.position
+    private fun setupAdapter() {
+        detailCategoryAdapter = DetailCategoryAdapter(
+            requireContext(),
+            listItem,
+            onClickItemCategoryListener = { position, item ->
+                navigationManager.gotoDetailActivityScreen(item)
+            },
+            onClickAddToCartListener = { position, item ->
+                var cartItem = CartItem()
+                cartItem.item = item
+                val objAddToCart = Cart()
+                objAddToCart.amount = 1
+                objAddToCart.createdTime = System.currentTimeMillis()
+                objAddToCart.totalPrice = item.price?.toLong()
+                viewModel.addCartItemToCart(cart = objAddToCart)
+                Toast.makeText(requireContext(), "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
+            })
+        setupLinearLayoutRecyclerView(context, binding.rvResultSearch)
+        binding.rvResultSearch.adapter = detailCategoryAdapter
     }
 }

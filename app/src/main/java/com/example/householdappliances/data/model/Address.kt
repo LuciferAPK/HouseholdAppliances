@@ -21,6 +21,6 @@ data class Address(
     var ward: String? = null
 ): Serializable{
     override fun toString(): String {
-        return "Số $number, đường $street, phường $ward, quận $district, thành phố $city "
+        return "Số: $number \nĐường: $street \nPhường: $ward \nQuận: $district \nThành phố: $city"
     }
 }
