@@ -78,6 +78,7 @@ class OrderActivity : BaseActivity<ActivityOrderBinding>() {
                 finalPrice = cart?.totalPrice,
                 cart = cart
             )
+            order.cart?.isOrder = "yes"
             cartViewModel.takeOrder(order = order)
         }
 

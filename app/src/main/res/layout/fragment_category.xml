@@ -43,6 +43,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="match_parent"
+            android:id="@+id/progress"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/dp80"
+            app:indicatorColor="@color/black"
+            app:trackCornerRadius="@dimen/dp4"
+            app:trackThickness="@dimen/dp7"
+            android:visibility="gone"
+            app:trackColor="@color/colorYellow"
+            android:indeterminate="true"
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -91,6 +91,20 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    val orderOfCustomerResult = SingleLiveEvent<Result<List<Order>>>()
+    fun getOrderOfCustomer(
+        url: String? = END_POINT_GET_ALL_ORDER_OF_CUSTOMER,
+        idCustomer: Int? = 0
+    ) {
+        val request = homeRepository.getAllOrderOfCustomer(
+            url = url,
+            idCustomer = idCustomer
+        )
+        orderOfCustomerResult.addSource(request) {
+            orderOfCustomerResult.postValue(it)
+        }
+    }
+
     fun saveCustomer(customer: Customer) = preferencesManager.save(CUSTOMER, GsonUtils.serialize(customer, Customer::class.java))
 
     fun getCustomer() : Customer? = GsonUtils.deserialize(preferencesManager.getString(CUSTOMER), Customer::class.java)

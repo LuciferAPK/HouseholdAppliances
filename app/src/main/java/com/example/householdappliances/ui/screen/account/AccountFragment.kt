@@ -38,9 +38,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             navigationManager.gotoAddressFragmentScreen(parentFragmentManager)
         }
 
-        binding.listItem.setOnClickListener {
-            navigationManager.gotoListCartFragmentScreen(parentFragmentManager)
-        }
+        binding.tvListOrder.setOnClickListener {
+            navigationManager.gotoListOrderScreen(parentFragmentManager)
     }
 
     override fun observerLiveData() {

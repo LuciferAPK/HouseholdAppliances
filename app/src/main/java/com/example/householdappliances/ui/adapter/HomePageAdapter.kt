@@ -17,29 +17,6 @@ class HomePageAdapter(
         fragmentList.add(fragment)
     }
 
-//    fun getFragmentTitleList(): Array<String> {
-//        val titles : ArrayList<String> = arrayListOf()
-//        for(fragment in fragmentList){
-//            when(fragment){
-//                is WallpaperForYouFragment-> titles.add(fragment.title)
-//                is LiveFragment -> titles.add(fragment.title)
-//                is DownloadedFragment -> titles.add(fragment.title)
-//                is FavouriteFragment -> titles.add(fragment.title)
-//                is HashtagHistoryFragment -> {
-//                    val  myFragment = fragment as HashtagHistoryFragment
-//                    fragment.getDataFromBundle()
-//                    titles.add(fragment.title)
-//                }
-//                is HashtagDynamicFragment -> {
-//                    val  myFragment = fragment as HashtagDynamicFragment
-//                    fragment.getDataFromBundle()
-//                    titles.add(fragment.title)
-//                }
-//            }
-//        }
-//        return titles.toTypedArray()
-//    }
-
     fun addFragments(
         fragments: List<Fragment>
     ) {

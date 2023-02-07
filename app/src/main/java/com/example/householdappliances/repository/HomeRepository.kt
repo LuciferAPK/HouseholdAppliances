@@ -2,15 +2,15 @@ package com.example.householdappliances.repository
 
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.example.householdappliances.base.Result
-import com.example.householdappliances.data.model.Category
 import com.example.householdappliances.data.model.Customer
-import com.example.householdappliances.data.model.Item
+import com.example.householdappliances.data.model.Order
 import com.example.householdappliances.data.response.ErrorResponse
 import com.example.householdappliances.network.Api
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(
@@ -60,4 +60,34 @@ class HomeRepository @Inject constructor(
             }
         }
 
+    fun getAllOrderOfCustomer(
+        url: String?,
+        idCustomer: Int?
+    ): LiveData<Result<List<Order>>> {
+        val orderLiveData = MutableLiveData<Result<List<Order>>>()
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            orderLiveData.postValue(Result.Failure(400, throwable.message))
+        }
+        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+            orderLiveData.postValue(Result.InProgress())
+            val request = api.getAllOrderOfCustomer(url = url, idCustomer = idCustomer)
+            withContext(Dispatchers.Main) {
+                if (request.isSuccessful) {
+                    val orderResponse = Result.Success(request.body() as List<Order>)
+                    orderLiveData.postValue(orderResponse)
+                } else {
+                    val strErr = request.errorBody()?.string()
+                    val status = Gson().fromJson(strErr, ErrorResponse::class.java)
+                    orderLiveData.postValue(
+                        Result.Failures(
+                            status,
+                            request.code(),
+                            request.message()
+                        )
+                    )
+                }
+            }
+        }
+        return orderLiveData
+    }
 }

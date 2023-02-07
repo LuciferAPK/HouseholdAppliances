@@ -57,4 +57,10 @@ interface Api {
         @Body order: Order?
     ): Response<Order>
 
+    @GET
+    suspend fun getAllOrderOfCustomer(
+        @Url url: String?,
+        @Query("idCustomer") idCustomer: Int?
+    ): Response<List<Order>>
+
 }

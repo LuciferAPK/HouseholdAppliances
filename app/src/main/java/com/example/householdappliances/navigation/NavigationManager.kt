@@ -13,6 +13,7 @@ import com.example.householdappliances.navigation.KeyDataIntent.CART
 import com.example.householdappliances.navigation.KeyDataIntent.CATEGORY
 import com.example.householdappliances.navigation.KeyDataIntent.ITEM
 import com.example.householdappliances.ui.screen.account.AddressFragment
+import com.example.householdappliances.ui.screen.account.OrderOfCustomerFragment
 import com.example.householdappliances.ui.screen.cart.CartActivity
 import com.example.householdappliances.ui.screen.cart.ListCartFragment
 import com.example.householdappliances.ui.screen.detail.DetailActivity
@@ -99,6 +100,15 @@ class NavigationManager(private val context: Context) {
     fun gotoAddressFragmentScreen(parentFragmentManager: FragmentManager){
         val bundle = Bundle()
         val fragment = AddressFragment().apply { arguments = bundle }
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.content_frame, fragment)
+        fragmentTransaction.addToBackStack(fragment.tag)
+        fragmentTransaction.commit()
+    }
+
+    fun gotoListOrderScreen(parentFragmentManager: FragmentManager){
+        val bundle = Bundle()
+        val fragment = OrderOfCustomerFragment().apply { arguments = bundle }
         val fragmentTransaction = parentFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.content_frame, fragment)
         fragmentTransaction.addToBackStack(fragment.tag)
