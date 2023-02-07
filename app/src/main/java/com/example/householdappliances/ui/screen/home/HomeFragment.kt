@@ -1,10 +1,12 @@
 package com.example.householdappliances.ui.screen.home
 
-import android.view.View
 import com.example.householdappliances.R
 import com.example.householdappliances.base.BaseFragment
 import com.example.householdappliances.databinding.FragmentHomeBinding
+import com.example.householdappliances.ui.adapter.HomePageAdapter
 import com.example.householdappliances.ui.adapter.PagerAdapter
+import com.example.householdappliances.ui.screen.account.AccountFragment
+import com.example.householdappliances.ui.screen.search.SearchFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -10,4 +10,5 @@ const val END_POINT_SEARCH_ITEM_BY_KEY = "item/searchByKey"
 const val END_POINT_CREATE_ORDER = "order"
 const val END_POINT_GET_HOT_ITEM = "item/hotItem"
 const val END_POINT_ADD_RATING_ITEM = "item/addRating"
+const val END_POINT_GET_ALL_ORDER_OF_CUSTOMER = "order/getAllOrderOfCustomer"
 

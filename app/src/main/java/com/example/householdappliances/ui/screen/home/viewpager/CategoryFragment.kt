@@ -7,9 +7,12 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.householdappliances.R
+import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.base.BaseFragment
+import com.example.householdappliances.base.Result
 import com.example.householdappliances.data.model.*
 import com.example.householdappliances.databinding.FragmentCategoryBinding
 import com.example.householdappliances.databinding.FragmentHomeBinding
@@ -17,6 +20,7 @@ import com.example.householdappliances.navigation.KeyDataIntent
 import com.example.householdappliances.navigation.KeyDataIntent.CATEGORY
 import com.example.householdappliances.navigation.NavigationManager
 import com.example.householdappliances.ui.adapter.DetailCategoryAdapter
+import com.example.householdappliances.ui.screen.cart.CartViewModel
 import com.example.householdappliances.ui.screen.main.MainViewModel
 import com.example.householdappliances.utils.setupLinearLayoutRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +34,8 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     @Inject
     lateinit var navigationManager: NavigationManager
 
+    private var currentCartItem: CartItem ?= null
+    private val cartViewModel : CartViewModel by activityViewModels()
     private val viewModel: MainViewModel by viewModels()
     private val listItemByCategory: ArrayList<Item> = ArrayList()
     private lateinit var detailCategoryAdapter: DetailCategoryAdapter
@@ -68,6 +74,45 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                 })
             }
         }
+        cartViewModel.apply {
+            getCartByIdCustomer.observe(this@CategoryFragment){ result ->
+                when(result){
+                    is Result.InProgress ->{
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    is Result.Success ->{
+                        ApplicationContext.cart = result.data
+                        val cart = result.data
+                        cart.cartItems?.add(currentCartItem)
+                        cartViewModel.addCartItemToCart(cart = cart)
+                    }
+                    is Result.Failure->{
+                        Log.d("CART_CUSTOMER", "ERROR - ${result.failureMessage}")
+                        binding.progress.visibility = View.GONE
+                    }
+                }
+            }
+
+            updateCartResult.observe(this@CategoryFragment){ result ->
+                when(result){
+                    is Result.InProgress ->{
+                    }
+                    is Result.Success ->{
+                        binding.progress.visibility = View.GONE
+                        ApplicationContext.cart = result.data
+                        Log.d("CART_CUSTOMER", result.data.cartItems.toString())
+                        //navigationManager.gotoCartActivityScreen(this@DetailActivity, result.data)
+                        Toast.makeText(requireContext(),"Thêm mặt hàng thành công vào giỏ hàng", Toast.LENGTH_SHORT).show()
+                    }
+                    is Result.Failure->{
+                        Log.d("CART_CUSTOMER", "ERROR - ${result.failureMessage}")
+                        binding.progress.visibility = View.GONE
+                    }
+                }
+
+            }
+
+        }
     }
 
     private fun getDataFromBundle() {
@@ -105,17 +150,17 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                 navigationManager.gotoDetailActivityScreen(item)
             },
             onClickAddToCartListener = { position, item ->
-                /**check login*/
-                var cartItem = CartItem()
-                cartItem.item = item
-                val objAddToCart = Cart()
-//                objAddToCart.cartItems = listItemByCategory.get(0)
-                objAddToCart.amount = 1
-                objAddToCart.createdTime = System.currentTimeMillis()
-                objAddToCart.totalPrice = item.price?.toLong()
-//                objAddToCart.cartItems = cartItem
-                viewModel.addCartItemToCart(cart = objAddToCart)
-                Toast.makeText(requireContext(), "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
+                currentCartItem = CartItem(amount = 1, createdTime = System.currentTimeMillis(), item = item)
+                if(ApplicationContext.customer == null){
+                    navigationManager.gotoLoginActivityScreen()
+                }else{
+                    if(ApplicationContext.cart == null){
+                        cartViewModel.getCartOfCustomer()
+                    }else{
+                        ApplicationContext.cart?.cartItems?.add(currentCartItem)
+                        cartViewModel.addCartItemToCart(cart = ApplicationContext.cart)
+                    }
+                }
             })
         setupLinearLayoutRecyclerView(context, binding.rvItemCategory)
         binding.rvItemCategory.adapter = detailCategoryAdapter
