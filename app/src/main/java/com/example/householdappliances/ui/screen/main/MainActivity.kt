@@ -48,6 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             addFragment(profileFragment)
         }
         binding.vpMain.adapter = adapter
+        setMenuBottomNavigation()
     }
 
     private fun initFragment(){
