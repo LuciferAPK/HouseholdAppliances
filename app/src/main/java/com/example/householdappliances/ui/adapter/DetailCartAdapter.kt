@@ -17,7 +17,7 @@ import com.example.householdappliances.databinding.LayoutItemByCategoryBinding
 class DetailCartAdapter(
     private val context: Context,
     private val items: ArrayList<CartItem?>,
-    private val onClickDeleteItemListener: (Int, Item?) -> Unit
+    private val onClickDeleteItemListener: (Int, CartItem?) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -45,7 +45,7 @@ class DetailCartAdapter(
 
     inner class ViewHolder(
         val binding: LayoutItemByCardBinding,
-        private val onClickDeleteItemListener: (Int, Item?) -> Unit
+        private val onClickDeleteItemListener: (Int, CartItem?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(position: Int, item: CartItem?) {
@@ -57,7 +57,7 @@ class DetailCartAdapter(
                 .load(item?.item?.image)
                 .into(binding.imgCategory)
             binding.imgDelete.setOnClickListener {
-                onClickDeleteItemListener.invoke(position, item?.item)
+                onClickDeleteItemListener.invoke(position, item)
             }
         }
     }

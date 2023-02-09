@@ -3,6 +3,7 @@ package com.example.householdappliances.network
 import com.example.householdappliances.data.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -62,5 +63,17 @@ interface Api {
         @Url url: String?,
         @Query("idCustomer") idCustomer: Int?
     ): Response<List<Order>>
+
+    @DELETE
+    suspend fun deleteCartItem(
+        @Url url: String?,
+        @Query("idCartItem") idCartItem: Int?
+    ): Response<Int>
+
+    @DELETE
+    suspend fun deleteCart(
+        @Url url: String?,
+        @Query("idCart") idCart: Int?
+    ): Response<Int>
 
 }
