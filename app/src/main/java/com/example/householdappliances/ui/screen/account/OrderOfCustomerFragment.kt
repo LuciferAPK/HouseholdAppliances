@@ -1,6 +1,9 @@
 package com.example.householdappliances.ui.screen.account
 
+import android.util.Log
+import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.householdappliances.R
@@ -28,8 +31,20 @@ class OrderOfCustomerFragment : BaseFragment<FragmentOrderOfCustomerBinding>() {
         adapter = OrderAdapter(listOrder)
         binding.rvOrder.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvOrder.adapter = adapter
+        setupToolbar()
+        this.setHasOptionsMenu(true)
         onBackStack()
+    }
 
+    private fun setupToolbar() {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).title = "Danh sách đơn hàng"
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        activity?.onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 
     private fun onBackStack() {
@@ -42,6 +57,7 @@ class OrderOfCustomerFragment : BaseFragment<FragmentOrderOfCustomerBinding>() {
     }
 
     override fun initListener() {
+
     }
 
     override fun observerLiveData() {
@@ -58,7 +74,8 @@ class OrderOfCustomerFragment : BaseFragment<FragmentOrderOfCustomerBinding>() {
                             adapter.notifyDataSetChanged()
                         }
                     }
-                    else ->{
+                    else -> {
+
                     }
                 }
 

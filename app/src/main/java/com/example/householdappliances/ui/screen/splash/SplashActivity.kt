@@ -29,7 +29,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     override fun initView() {
-//        viewModel.getAllCategory()
         ApplicationContext.customer = viewModel.getCustomer()
         CoroutineExt.runOnMainAfterDelay(2000) {
             navigationManager.gotoMainActivityScreen()

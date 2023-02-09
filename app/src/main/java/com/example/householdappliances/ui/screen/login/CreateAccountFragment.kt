@@ -61,11 +61,11 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                     sessionContext().userName = binding.userName.text.toString().trim()
                     sessionContext().password = binding.suPassword.text.toString().trim()
                     mainViewModel.createAccount(customer = objCreateAccount)
-                    binding.tvName.text?.clear()
-                    binding.userName.text?.clear()
-                    binding.tvTel.text?.clear()
-                    binding.suPassword.text?.clear()
-                    binding.suCfpassword.text?.clear()
+//                    binding.tvName.text?.clear()
+//                    binding.userName.text?.clear()
+//                    binding.tvTel.text?.clear()
+//                    binding.suPassword.text?.clear()
+//                    binding.suCfpassword.text?.clear()
                 } else Toast.makeText(requireContext(), "Mật khẩu không khớp", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
@@ -92,15 +92,17 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>() {
                 binding.tvAddress.setText(it.toString())
                 address = it
             }
-            createAccountLogin.observe(this@CreateAccountFragment){  result ->
+            createAccountLogin.observe(this@CreateAccountFragment){ result ->
+                Log.d("TAG", "observerLiveData: $result")
                 when(result){
-                    is Result.InProgress ->{
+                    is Result.InProgress -> {
+
                     }
-                    is Result.Success ->{
+                    is Result.Success -> {
                         Toast.makeText(requireContext(), "Đăng kí tài khoản thành công", Toast.LENGTH_SHORT).show()
                         parentFragmentManager.popBackStack()
-                    }
-                    else ->{
+                    } else -> {
+
                     }
                 }
 

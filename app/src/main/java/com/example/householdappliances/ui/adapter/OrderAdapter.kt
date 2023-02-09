@@ -1,5 +1,6 @@
 package com.example.householdappliances.ui.adapter
 
+import android.annotation.SuppressLint
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.householdappliances.R
@@ -27,8 +28,11 @@ class OrderAdapter(dataSet : MutableList<Order?>) : BaseRecyclerAdapter<Order, O
     }
 
     inner class OrderViewHolder(private val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(data: Order?){
-            binding.tvOrder.text = data?.status
+        @SuppressLint("SetTextI18n")
+        fun bind(data: Order?) {
+            binding.tvStatus.text = "Trạng thái: ${data?.status}"
+            binding.thanhToan.text = "Hình thức thanh toán: ${data?.payment}"
+            binding.txtMoney.text = "Tổng thanh toán: ${data?.finalPrice.toString()}"
         }
     }
 }
