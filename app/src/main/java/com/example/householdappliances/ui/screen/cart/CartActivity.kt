@@ -1,6 +1,7 @@
 package com.example.householdappliances.ui.screen.cart
 
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.householdappliances.R
@@ -27,6 +28,7 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
     private lateinit var detailCartAdapter: DetailCartAdapter
     private var totalAmount: Int ?= 0
     private var totalPrice = 0L
+    private var currentPositionDelete = -1
 
     @Inject
     lateinit var navigationManager: NavigationManager
@@ -44,6 +46,9 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
             cart?.amount = totalAmount
             cart?.totalPrice = totalPrice
             navigationManager.gotoOrderActivityScreen(this, cart)
+        }
+        binding.deleteList.setOnClickListener {
+            cartViewModel.deleteCart(idCart = cart?.id)
         }
     }
 
@@ -77,7 +82,8 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
             this,
             cartItem,
             onClickDeleteItemListener = {i, item ->
-                Toast.makeText(this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show()
+                currentPositionDelete = i
+                cartViewModel.deleteCartItem(idCartItem = item?.id)
             })
         setupLinearLayoutRecyclerView(this, binding.rvListCart)
         binding.rvListCart.adapter = detailCartAdapter
@@ -88,14 +94,47 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
             getCartByIdCustomer.observe(this@CartActivity){ result ->
                 when(result){
                     is Result.InProgress ->{
-
+                        binding.progress.visibility = View.VISIBLE
                     }
                     is Result.Success ->{
                         cart = result.data
                         cartItem.clear()
                         cart?.cartItems?.let { cartItem.addAll(it) }
                         detailCartAdapter.notifyDataSetChanged()
+
+                        binding.progress.visibility = View.GONE
                         calculatorTotalPriceAndTotalAmount()
+                    }
+                    else ->{
+                    }
+                }
+            }
+
+            deleteCartItemResult.observe(this@CartActivity){ result ->
+                when(result){
+                    is Result.InProgress ->{
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    is Result.Success ->{
+                        binding.progress.visibility = View.GONE
+                        cartItem.removeAt(currentPositionDelete)
+                        detailCartAdapter.notifyDataSetChanged()
+                    }
+                    else ->{
+                        binding.progress.visibility = View.GONE
+                    }
+                }
+            }
+
+            deleteCartResult.observe(this@CartActivity){ result ->
+                when(result){
+                    is Result.InProgress ->{
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    is Result.Success ->{
+                        binding.progress.visibility = View.GONE
+                        cartItem.clear()
+                        detailCartAdapter.notifyDataSetChanged()
                     }
                     else ->{
                     }

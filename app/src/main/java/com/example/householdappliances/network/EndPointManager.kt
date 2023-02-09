@@ -11,4 +11,6 @@ const val END_POINT_CREATE_ORDER = "order"
 const val END_POINT_GET_HOT_ITEM = "item/hotItem"
 const val END_POINT_ADD_RATING_ITEM = "item/addRating"
 const val END_POINT_GET_ALL_ORDER_OF_CUSTOMER = "order/getAllOrderOfCustomer"
+const val END_POINT_DELETE_CART_ITEM = "cart/delete/cartItem"
+const val END_POINT_DELETE_CART = "cart/delete/cart"
 

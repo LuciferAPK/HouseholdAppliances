@@ -105,4 +105,66 @@ class CartRepository @Inject constructor(private val api: Api) {
         }
         return orderLiveData
     }
+
+    fun deleteCartItem(
+        url: String?,
+        idCartItem: Int?
+    ): LiveData<Result<Int>> {
+        val cartItemLiveData = MutableLiveData<Result<Int>>()
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            cartItemLiveData.postValue(Result.Failure(400, throwable.message))
+        }
+        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+            cartItemLiveData.postValue(Result.InProgress())
+            val request = api.deleteCartItem(url = url, idCartItem = idCartItem)
+            withContext(Dispatchers.Main) {
+                if (request.isSuccessful) {
+                    val cartResponse = Result.Success(request.body() as Int)
+                    cartItemLiveData.postValue(cartResponse)
+                } else {
+                    val strErr = request.errorBody()?.string()
+                    val status = Gson().fromJson(strErr, ErrorResponse::class.java)
+                    cartItemLiveData.postValue(
+                        Result.Failures(
+                            status,
+                            request.code(),
+                            request.message()
+                        )
+                    )
+                }
+            }
+        }
+        return cartItemLiveData
+    }
+
+    fun deleteCart(
+        url: String?,
+        idCart: Int?
+    ): LiveData<Result<Int>> {
+        val cartItemLiveData = MutableLiveData<Result<Int>>()
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            cartItemLiveData.postValue(Result.Failure(400, throwable.message))
+        }
+        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+            cartItemLiveData.postValue(Result.InProgress())
+            val request = api.deleteCart(url = url, idCart = idCart)
+            withContext(Dispatchers.Main) {
+                if (request.isSuccessful) {
+                    val cartResponse = Result.Success(request.body() as Int)
+                    cartItemLiveData.postValue(cartResponse)
+                } else {
+                    val strErr = request.errorBody()?.string()
+                    val status = Gson().fromJson(strErr, ErrorResponse::class.java)
+                    cartItemLiveData.postValue(
+                        Result.Failures(
+                            status,
+                            request.code(),
+                            request.message()
+                        )
+                    )
+                }
+            }
+        }
+        return cartItemLiveData
+    }
 }
