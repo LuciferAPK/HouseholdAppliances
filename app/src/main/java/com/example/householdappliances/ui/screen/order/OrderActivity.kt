@@ -1,5 +1,6 @@
 package com.example.householdappliances.ui.screen.order
 
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.householdappliances.R
@@ -31,6 +32,10 @@ class OrderActivity : BaseActivity<ActivityOrderBinding>() {
     override fun initView() {
         getDataFromIntent()
         setupAdapter()
+        setData()
+    }
+
+    private fun setData(){
         binding.tvTotalAmount.text = cart?.amount.toString()
         binding.tvTotalPrice.text = cart?.totalPrice.toString()
         binding.tvTotal.text = cart?.totalPrice.toString()
@@ -53,7 +58,7 @@ class OrderActivity : BaseActivity<ActivityOrderBinding>() {
             cartItem,
             onClickDeleteItemListener = { i, item ->
                 Toast.makeText(this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show()
-            })
+            }, isDelete = false)
         setupLinearLayoutRecyclerView(this, binding.rvListCart)
         binding.rvListCart.adapter = detailCartAdapter
 

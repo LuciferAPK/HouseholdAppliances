@@ -3,6 +3,7 @@ package com.example.householdappliances.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,8 @@ import com.example.householdappliances.databinding.LayoutItemByCategoryBinding
 class DetailCartAdapter(
     private val context: Context,
     private val items: ArrayList<CartItem?>,
-    private val onClickDeleteItemListener: (Int, CartItem?) -> Unit
+    private val onClickDeleteItemListener: (Int, CartItem?) -> Unit,
+    private val isDelete: Boolean ?= true
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,6 +49,11 @@ class DetailCartAdapter(
         val binding: LayoutItemByCardBinding,
         private val onClickDeleteItemListener: (Int, CartItem?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            if( isDelete == true)
+                binding.imgDelete.visibility = View.VISIBLE
+            else binding.imgDelete.visibility = View.GONE
+        }
         @SuppressLint("SetTextI18n")
         fun bind(position: Int, item: CartItem?) {
             binding.txtName.text = item?.item?.name

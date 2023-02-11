@@ -68,6 +68,8 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
     }
 
     private fun calculatorTotalPriceAndTotalAmount(){
+        totalAmount = 0
+        totalPrice = 0
         cartItem.forEach {
             totalAmount = totalAmount?.plus(it?.amount ?: 0)
             totalPrice = totalPrice.plus(it?.amount?.times(it.item?.price!!) ?: 0)
@@ -118,6 +120,8 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
                     is Result.Success ->{
                         binding.progress.visibility = View.GONE
                         cartItem.removeAt(currentPositionDelete)
+                        cart?.cartItems?.removeAt(currentPositionDelete)
+                        calculatorTotalPriceAndTotalAmount()
                         detailCartAdapter.notifyDataSetChanged()
                     }
                     else ->{
@@ -134,6 +138,9 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
                     is Result.Success ->{
                         binding.progress.visibility = View.GONE
                         cartItem.clear()
+                        ApplicationContext.cart = null
+                        cart = null
+                        calculatorTotalPriceAndTotalAmount()
                         detailCartAdapter.notifyDataSetChanged()
                     }
                     else ->{

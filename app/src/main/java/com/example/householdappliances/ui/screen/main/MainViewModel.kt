@@ -109,6 +109,8 @@ class MainViewModel @Inject constructor(
 
     fun getCustomer() : Customer? = GsonUtils.deserialize(preferencesManager.getString(CUSTOMER), Customer::class.java)
 
+    fun clearCustomer() = preferencesManager.remove(CUSTOMER)
+
     val addressCustomer = SingleLiveEvent<Address>()
     fun createAddressCustomer(address: Address){
         addressCustomer.postValue(address)
