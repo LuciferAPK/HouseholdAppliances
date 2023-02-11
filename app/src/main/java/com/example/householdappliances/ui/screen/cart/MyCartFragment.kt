@@ -2,9 +2,11 @@ package com.example.householdappliances.ui.screen.cart
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.householdappliances.R
 import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.application.ApplicationContext.sessionContext
@@ -22,6 +24,7 @@ import com.example.householdappliances.ui.screen.main.MainViewModel
 import com.example.householdappliances.utils.setupGridLayoutRecyclerView
 import com.example.householdappliances.utils.setupLinearLayoutRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.layout_request_login.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,8 +37,9 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
     private lateinit var detailCartAdapter: DetailCartAdapter
     private var totalAmount: Int ?= 0
     private var totalPrice = 0L
+    private var currentPositionDelete = -1
 
-    private val cartViewModel: CartViewModel by activityViewModels()
+    private val cartViewModel: CartViewModel by viewModels()
 
     override fun getContentLayout(): Int {
         return R.layout.fragment_cart
@@ -44,6 +48,7 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
     @SuppressLint("SetTextI18n")
     override fun initView() {
         binding.titleCart.text = "Giỏ hàng"
+        cart = ApplicationContext.cart
         setupAdapter()
     }
 
@@ -56,6 +61,9 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
             cart?.amount = totalAmount
             cart?.totalPrice = totalPrice
             navigationManager.gotoOrderActivityScreen(requireActivity(), cart)
+        }
+        binding.viewRequestLogin.btnLogin.setOnClickListener {
+            navigationManager.gotoLoginActivityScreen()
         }
     }
 
@@ -77,11 +85,30 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
                     }
                 }
             }
+            deleteCartItemResult.observe(this@MyCartFragment){ result ->
+                when(result){
+                    is Result.InProgress ->{
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    is Result.Success ->{
+                        binding.progress.visibility = View.GONE
+                        cartItem.removeAt(currentPositionDelete)
+                        cart?.cartItems?.removeAt(currentPositionDelete)
+                        calculatorTotalPriceAndTotalAmount()
+                        detailCartAdapter.notifyDataSetChanged()
+                    }
+                    else ->{
+                        binding.progress.visibility = View.GONE
+                    }
+                }
+            }
 
         }
     }
 
     private fun calculatorTotalPriceAndTotalAmount(){
+        totalAmount = 0
+        totalPrice = 0
         cartItem.forEach {
             totalAmount = totalAmount?.plus(it?.amount ?: 0)
             totalPrice = totalPrice.plus(it?.amount?.times(it.item?.price!!) ?: 0)
@@ -96,7 +123,8 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
             requireContext(),
             cartItem,
             onClickDeleteItemListener = {i, item ->
-                Toast.makeText(requireContext(), "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show()
+                currentPositionDelete = i
+                cartViewModel.deleteCartItem(idCartItem = item?.id)
             })
         setupLinearLayoutRecyclerView(context, binding.rvListCart)
         binding.rvListCart.adapter = detailCartAdapter
@@ -104,8 +132,12 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (cartItem.isEmpty()) {
+        if (ApplicationContext.customer == null) {
+            binding.viewRequestLogin.root.visibility = View.VISIBLE
+        }
+        else{
             cartViewModel.getCartOfCustomer()
+            binding.viewRequestLogin.root.visibility = View.GONE
         }
     }
 }

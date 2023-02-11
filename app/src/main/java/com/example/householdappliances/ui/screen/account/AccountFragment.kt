@@ -3,6 +3,7 @@ package com.example.householdappliances.ui.screen.account
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.householdappliances.R
 import com.example.householdappliances.application.ApplicationContext
 import com.example.householdappliances.application.ApplicationContext.sessionContext
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     @Inject
     lateinit var navigationManager: NavigationManager
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun getContentLayout(): Int {
         return R.layout.fragment_account
@@ -31,6 +33,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun initListener() {
         binding.btnLogout.setOnClickListener {
+            ApplicationContext.customer = null
+            mainViewModel.clearCustomer()
+            ApplicationContext.cart = null
             navigationManager.gotoLoginActivityScreen()
         }
 
@@ -50,5 +55,10 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     private fun setupData() {
         binding.nameInformation.text = "Họ tên: ${ApplicationContext.customer?.name}"
         binding.numberInformation.text = "Điện thoại: ${ApplicationContext.customer?.tel}"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupData()
     }
 }

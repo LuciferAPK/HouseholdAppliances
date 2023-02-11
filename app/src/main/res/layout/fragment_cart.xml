@@ -312,5 +312,10 @@
                 android:indeterminate="true"
                 android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            layout="@layout/layout_request_login"
+            android:visibility="gone"
+            android:id="@+id/view_request_login"
+            />
     </FrameLayout>
 </layout>
