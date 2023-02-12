@@ -121,6 +121,7 @@ class CartActivity : BaseActivity<FragmentCartBinding>() {
                         binding.progress.visibility = View.GONE
                         cartItem.removeAt(currentPositionDelete)
                         cart?.cartItems?.removeAt(currentPositionDelete)
+                        ApplicationContext.cart?.cartItems?.removeAt(currentPositionDelete)
                         calculatorTotalPriceAndTotalAmount()
                         detailCartAdapter.notifyDataSetChanged()
                     }

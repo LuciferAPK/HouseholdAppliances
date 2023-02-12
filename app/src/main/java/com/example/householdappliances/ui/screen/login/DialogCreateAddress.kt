@@ -1,6 +1,7 @@
 package com.example.householdappliances.ui.screen.login
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.example.householdappliances.R
@@ -33,5 +34,20 @@ class DialogCreateAddress : BaseDialog<LayoutDialogCreateAddressBinding>() {
             viewModel.createAddressCustomer(address)
             this.dismiss()
         }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+    }
+
+    override fun getGravityForDialog(): Int {
+        return Gravity.BOTTOM
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setSizeFullForDialog()
     }
 }

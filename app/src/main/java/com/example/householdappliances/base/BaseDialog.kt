@@ -26,6 +26,9 @@ abstract class BaseDialog<BINDING : ViewDataBinding>: DialogFragment() {
             this.dialog!!.window!!.requestFeature(Window.FEATURE_NO_TITLE)
             this.dialog!!.window!!.setBackgroundDrawable(ColorDrawable(0))
         }
+        val windowManagerLayoutParams = this.dialog?.window?.attributes
+        windowManagerLayoutParams?.gravity = getGravityForDialog()
+        this.dialog?.window?.attributes = windowManagerLayoutParams
         init(savedInstanceState, binding.root)
         return binding.root
     }
@@ -65,6 +68,8 @@ abstract class BaseDialog<BINDING : ViewDataBinding>: DialogFragment() {
         setUp(view)
     }
 
+    protected abstract fun getGravityForDialog(): Int
+
     protected abstract fun getLayoutResource(): Int
 
     protected abstract fun init(saveInstanceState: Bundle?, view: View?)
@@ -87,5 +92,17 @@ abstract class BaseDialog<BINDING : ViewDataBinding>: DialogFragment() {
 
     fun dismissDialog(tag: String?) {
         dismiss()
+    }
+
+    /**
+     * Set size full for base dialog
+     */
+    protected fun setSizeFullForDialog() {
+        if (dialog?.window != null) {
+            dialog?.window?.setLayout(
+                requireActivity().window.decorView.width,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+        }
     }
 }
