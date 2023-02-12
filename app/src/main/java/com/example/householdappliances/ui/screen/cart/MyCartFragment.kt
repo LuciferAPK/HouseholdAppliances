@@ -54,7 +54,13 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
 
     override fun initListener() {
         binding.deleteList.setOnClickListener {
-            DialogClearCart().show(childFragmentManager, "DialogClearCart")
+            DialogClearCart(onClickDelete = {
+                cartViewModel.deleteCart(idCart = cart?.id)
+            }).show(childFragmentManager, "DialogClearCart")
+
+            binding.tvTotalAmount.text = ""
+            binding.tvTotalPrice.text = ""
+            binding.tvTotal.text = ""
         }
 
         binding.btnOrder.setOnClickListener {
@@ -86,6 +92,22 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
                     }
                 }
             }
+
+            deleteCartResult.observe(this@MyCartFragment){ result ->
+                when(result){
+                    is Result.InProgress ->{
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    is Result.Success ->{
+                        binding.progress.visibility = View.GONE
+                        cartItem.clear()
+                        detailCartAdapter.notifyDataSetChanged()
+                    }
+                    else ->{
+                    }
+                }
+            }
+
             deleteCartItemResult.observe(this@MyCartFragment){ result ->
                 when(result){
                     is Result.InProgress ->{
@@ -95,7 +117,7 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
                         binding.progress.visibility = View.GONE
                         cartItem.removeAt(currentPositionDelete)
                         cart?.cartItems?.removeAt(currentPositionDelete)
-                        ApplicationContext.cart?.cartItems?.removeAt(currentPositionDelete)
+//                        ApplicationContext.cart?.cartItems?.removeAt(currentPositionDelete)
                         calculatorTotalPriceAndTotalAmount()
                         detailCartAdapter.notifyDataSetChanged()
                     }
@@ -104,7 +126,6 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
                     }
                 }
             }
-
         }
     }
 
@@ -127,6 +148,7 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
             onClickDeleteItemListener = {i, item ->
                 currentPositionDelete = i
                 cartViewModel.deleteCartItem(idCartItem = item?.id)
+                Toast.makeText(requireContext(), "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show()
             })
         setupLinearLayoutRecyclerView(context, binding.rvListCart)
         binding.rvListCart.adapter = detailCartAdapter

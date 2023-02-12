@@ -80,7 +80,7 @@ class MainViewModel @Inject constructor(
     val addCartItemToCartCustomer = SingleLiveEvent<Result<Cart>>()
     fun addCartItemToCart(
         url: String? = END_POINT_ADD_CART_ITEM_TO_CART,
-        cart: Cart
+        cart: Cart?
     ) {
         val request = cartRepository.addCartItemToCart(
             url = url,
