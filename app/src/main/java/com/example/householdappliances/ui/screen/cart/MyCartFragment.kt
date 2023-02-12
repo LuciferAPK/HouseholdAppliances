@@ -77,6 +77,7 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
                     is Result.Success ->{
                         cart = result.data
                         cartItem.clear()
+                        ApplicationContext.cart = result.data
                         cart?.cartItems?.let { cartItem.addAll(it) }
                         detailCartAdapter.notifyDataSetChanged()
                         calculatorTotalPriceAndTotalAmount()
@@ -94,6 +95,7 @@ class MyCartFragment : BaseFragment<FragmentCartBinding>() {
                         binding.progress.visibility = View.GONE
                         cartItem.removeAt(currentPositionDelete)
                         cart?.cartItems?.removeAt(currentPositionDelete)
+                        ApplicationContext.cart?.cartItems?.removeAt(currentPositionDelete)
                         calculatorTotalPriceAndTotalAmount()
                         detailCartAdapter.notifyDataSetChanged()
                     }

@@ -14,6 +14,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="DialogAnimation" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowEnterAnimation">@anim/dialog_show_down</item>
+        <item name="android:windowExitAnimation">@anim/dialog_hide_up</item>
+    </style>
     <style name="DialogGeneral" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@null</item>
     </style>
