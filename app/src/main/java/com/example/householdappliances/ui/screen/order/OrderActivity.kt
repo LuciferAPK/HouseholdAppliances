@@ -57,7 +57,7 @@ class OrderActivity : BaseActivity<ActivityOrderBinding>() {
             this,
             cartItem,
             onClickDeleteItemListener = { i, item ->
-                Toast.makeText(this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show()
             }, isDelete = false)
         setupLinearLayoutRecyclerView(this, binding.rvListCart)
         binding.rvListCart.adapter = detailCartAdapter
